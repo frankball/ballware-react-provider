@@ -211,6 +211,8 @@ export const LookupProvider = ({ children }: LookupProviderProps): JSX.Element =
 
                 return createGenericLookupByIdentifier(() => token, lookupApi, identifier, valueExpr, displayExpr);
             }
+
+            return undefined;
         },
         [metaLookupApiFactory, token],
     );

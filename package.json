@@ -1,86 +1,84 @@
 {
-    "name": "@ballware/react-provider",
-    "version": "6.0.0-beta2",
-    "description": "Ballware Application Builder - React provider for contexts",
-    "main": "dist/index.js",
-    "types": "dist/index.d.ts",
-    "scripts": {
-        "build": "tsc",
-        "lint": "eslint \"src/**/*.{js,ts,tsx}\" --fix"
-    },
-    "files": [
-        "dist/**/*"
-    ],
-    "exports": {
-        "./": "./dist/"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/frankball/ballware-react-provider.git"
-    },
-    "keywords": [],
-    "author": "frank@ballmeyer.com",
-    "license": "MIT",
-    "bugs": {
-        "url": "https://github.com/frankball/ballware-react-provider/issues"
-    },
-    "devDependencies": {
-        "@typescript-eslint/eslint-plugin": "^4.10.0",
-        "@typescript-eslint/parser": "^4.10.0",
-        "eslint": "^7.16.0",
-        "eslint-config-prettier": "^7.1.0",
-        "eslint-plugin-prettier": "^3.3.1",
-        "eslint-plugin-react": "^7.22.0",
-        "prettier": "^2.2.1",
-        "typescript": "^4.1.3"
-    },
-    "dependencies": {
-        "@ballware/react-contexts": "^6.0.0-beta3",
-        "@types/json5": "0.0.30",
-        "@types/lodash": "^4.14.165",
-        "@types/react": "^17.0.0",
-        "@types/react-router-dom": "^5.1.5",
-        "@types/uuid": "^8.3.0",
-        "axios": "^0.21.1",
-        "json5": "^2.1.3",
-        "lodash": "^4.17.20",
-        "moment": "^2.29.1",
-        "react": "^17.0.1",
-        "react-router-dom": "^5.2.0",
-        "uuid": "^8.3.2"
-    },
-    "homepage": "https://github.com/frankball/ballware-react-provider#readme",
-    "prettier": {
-        "semi": true,
-        "printWidth": 120,
-        "tabWidth": 4,
-        "trailingComma": "all",
-        "singleQuote": true
-    },
-    "eslintConfig": {
-        "parser": "@typescript-eslint/parser",
-        "parserOptions": {
-            "ecmaVersion": 2020,
-            "sourceType": "module",
-            "ecmaFeatures": {
-                "jsx": true
-            }
-        },
-        "settings": {
-            "react": {
-                "version": "detect"
-            }
-        },
-        "extends": [
-            "plugin:react/recommended",
-            "plugin:@typescript-eslint/recommended",
-            "prettier/@typescript-eslint",
-            "plugin:prettier/recommended"
-        ],
-        "ignorePatterns": [
-            "node_modules",
-            "dist",
-            "spec"
-        ]
+  "name": "@ballware/react-provider",
+  "version": "6.0.0-beta3",
+  "description": "Ballware Application Builder - React provider for contexts",
+  "license": "MIT",
+  "author": "frank@ballmeyer.com",
+  "homepage": "https://github.com/frankball/ballware-react-provider#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frankball/ballware-react-provider.git"
+  },
+  "bugs": {
+    "url": "https://github.com/frankball/ballware-react-provider/issues"
+  },
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint --fix",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "react-router-dom": ">=5.2.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
     }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "module": "dist/ballware-react-provider.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/ballware-react-provider.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/ballware-react-provider.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^4.9.1",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@types/react-router-dom": "^5.1.5",
+    "@types/lodash": "^4.14.165",
+    "@types/uuid": "^8.3.0",
+    "husky": "^4.3.7",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "react-router-dom": "^5.2.0",
+    "size-limit": "^4.9.1",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.1.0",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "moment": "^2.29.1",
+    "lodash": "^4.17.20",
+    "axios": "^0.21.1",
+    "uuid": "^8.3.2",
+    "@ballware/identity-interface": "^6.0.0-beta1",
+    "@ballware/meta-interface": "^6.0.0-beta1",
+    "@ballware/react-contexts": "^6.0.0-beta4"
+  }
 }

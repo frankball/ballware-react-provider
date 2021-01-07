@@ -1,17 +1,15 @@
 import React, { useState, useEffect } from 'react';
 
 import { ProviderFactoryContext, ProviderFactoryContextState } from '@ballware/react-contexts';
-import {
-    LookupProvider,
-    PageProvider,
-    MetaProvider,
-    CrudProvider,
-    NotificationProvider,
-    TenantProvider,
-    RightsProvider,
-    StatisticProvider,
-    EditProvider,
-} from '.';
+import { LookupProvider } from './lookupprovider';
+import { PageProvider } from './pageprovider';
+import { MetaProvider } from './metaprovider';
+import { CrudProvider } from './crudprovider';
+import { NotificationProvider } from './notificationprovider';
+import { TenantProvider } from './tenantprovider';
+import { RightsProvider } from './rightsprovider';
+import { StatisticProvider } from './statisticprovider';
+import { EditProvider } from './editprovider';
 
 export interface ProviderFactoryProps {
     children: JSX.Element | Array<JSX.Element>;

@@ -395,7 +395,7 @@ export const MetaProvider = ({
                             );
                         }
                     },
-                    editorValueChanged: (mode, item, editUtil, identifier, value) => {
+                    editorValueChanged: (_mode, item, editUtil, identifier, value) => {
                         if (metaData.compiledCustomScripts?.editorValueChanged) {
                             metaData.compiledCustomScripts.editorValueChanged(
                                 item,
@@ -407,7 +407,7 @@ export const MetaProvider = ({
                             );
                         }
                     },
-                    editorValidating: (mode, item, editUtil, identifier, value, validation) => {
+                    editorValidating: (_mode, item, editUtil, identifier, value, validation) => {
                         if (metaData.compiledCustomScripts?.editorValidating) {
                             return metaData.compiledCustomScripts.editorValidating(
                                 item,
@@ -422,7 +422,7 @@ export const MetaProvider = ({
                             return true;
                         }
                     },
-                    editorEvent: (mode, item, editUtil, identifier, event) => {
+                    editorEvent: (_mode, item, editUtil, identifier, event) => {
                         if (metaData.compiledCustomScripts?.editorEvent) {
                             metaData.compiledCustomScripts.editorEvent(
                                 item,
