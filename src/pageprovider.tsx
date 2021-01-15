@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback, useMemo } from 'react';
 import { CompiledPageData, ScriptActions, EditUtil, ValueType } from '@ballware/meta-interface';
 import {
     PageContext,
@@ -19,6 +19,7 @@ export interface PageProviderProps {
 export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.Element => {
     const [documentationEntity, setDocumentationEntity] = useState<string | undefined>();
     const [pageData, setPageData] = useState<CompiledPageData | undefined>();
+    const [pageParam, setPageParam] = useState<Record<string, unknown> | undefined>();
     const [customParam, setCustomParam] = useState<unknown | undefined>();
     const [value, setValue] = useState({} as PageContextState);
 
@@ -58,7 +59,7 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
         }
     }, [showError, showInfo, metaDocumentationApiFactory, token, documentationEntity]);
 
-    const resetDocumentation = () => {
+    const resetDocumentation = useCallback(() => {
         setDocumentationEntity(undefined);
         setValue((previousValue) => {
             return {
@@ -66,7 +67,15 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
                 documentation: undefined,
             } as PageContextState;
         });
-    };
+    }, []);
+
+    const scriptActions = useMemo(() => {
+        return {
+            loadData: (params) => {
+                setPageParam(params);
+            }
+        } as ScriptActions;
+    }, []);
 
     useEffect(() => {
         setValue({
@@ -97,20 +106,20 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
                 setCustomParam({});
             }
 
-            const paramsInitialized = (hidden: boolean, actions: ScriptActions) => {
+            const paramsInitialized = (hidden: boolean) => {
                 if (pageData.compiledCustomScripts?.paramsInitialized) {
-                    pageData.compiledCustomScripts?.paramsInitialized(hidden, lookups, createUtil(token), actions);
+                    pageData.compiledCustomScripts?.paramsInitialized(hidden, lookups, createUtil(token), scriptActions);
                 }
             };
 
-            const paramEditorInitialized = (name: string, editUtil: EditUtil, actions: ScriptActions) => {
+            const paramEditorInitialized = (name: string, editUtil: EditUtil) => {
                 if (pageData.compiledCustomScripts?.paramEditorInitialized) {
                     pageData.compiledCustomScripts?.paramEditorInitialized(
                         name,
                         editUtil,
                         lookups,
                         createUtil(token),
-                        actions,
+                        scriptActions,
                     );
                 }
             };
@@ -119,7 +128,6 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
                 name: string,
                 value: ValueType,
                 editUtil: EditUtil,
-                actions: ScriptActions,
             ) => {
                 if (pageData.compiledCustomScripts?.paramEditorValueChanged) {
                     pageData.compiledCustomScripts?.paramEditorValueChanged(
@@ -128,7 +136,7 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
                         editUtil,
                         lookups,
                         createUtil(token),
-                        actions,
+                        scriptActions,
                     );
                 }
             };
@@ -137,7 +145,6 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
                 name: string,
                 event: string,
                 editUtil: EditUtil,
-                actions: ScriptActions,
                 param?: Record<string, unknown>,
             ) => {
                 if (pageData.compiledCustomScripts?.paramEditorEvent) {
@@ -147,7 +154,7 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
                         editUtil,
                         lookups,
                         createUtil(token),
-                        actions,
+                        scriptActions,
                         param,
                     );
                 }
@@ -215,6 +222,17 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
             });
         }
     }, [pageData, customParam]);
+
+    useEffect(() => {
+
+        setValue((previousValue) => {
+            return {
+                ...previousValue,
+                pageParam: pageParam
+            } as PageContextState;
+        });
+
+    }, [pageParam])
 
     return <PageContext.Provider value={value}>{children}</PageContext.Provider>;
 };
