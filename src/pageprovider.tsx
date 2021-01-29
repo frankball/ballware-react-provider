@@ -217,11 +217,19 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
                 return {
                     ...previousValue,
                     pageData: pageData,
-                    customParam: customParam,
+                    customParam: customParam,                    
                 } as PageContextState;
             });
         }
     }, [pageData, customParam]);
+
+    useEffect(() => {
+        if (pageData) {
+            if (!pageData.layout?.searchparams) {
+                setPageParam({});
+            }
+        }
+    }, [pageData]);
 
     useEffect(() => {
 
