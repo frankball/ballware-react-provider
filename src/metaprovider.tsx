@@ -52,7 +52,9 @@ export const MetaProvider = ({
                     metaData.entity,
                     right,
                     metaData.compiledCustomScripts?.extendedRightsCheck,
-                    headParams,
+                    metaData.compiledCustomScripts?.rightsParamForHead
+                        ? metaData.compiledCustomScripts.rightsParamForHead(customParam) 
+                        : undefined,
                 )
             );
         };
