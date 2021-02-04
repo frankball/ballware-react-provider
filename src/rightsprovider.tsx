@@ -91,11 +91,11 @@ export const RightsProvider = ({ client, secret, children }: RightsProviderProps
                                     };
                                 });
 
-                                showInfo('Anmeldung erfolgreich');
+                                showInfo('rights.notification.loginsuccess');
                                 replace(redirect);
                             })
                             .catch((reason) => {
-                                showError(reason === 'invalid_grant' ? 'Benutzername oder Passwort ungültig' : reason);
+                                showError(reason === 'invalid_grant' ? 'rights.notifications.logininvalid' : reason);
                             });
                     },
                     logout: () => {
@@ -113,7 +113,7 @@ export const RightsProvider = ({ client, secret, children }: RightsProviderProps
                                         error: undefined,
                                     };
                                 });
-                                showInfo('Abmeldung erfolgreich');
+                                showInfo('rights.notifications.logoutsuccess');
                             })
                             .catch((reason) => showError(reason));
                     },
@@ -121,7 +121,7 @@ export const RightsProvider = ({ client, secret, children }: RightsProviderProps
                         api.register(username, password, displayname)
                             .then(() => {
                                 showInfo(
-                                    'Registrierung erfolgreich. Vom Administrator müssen erst Rechte vergeben werden, um die Anwendung nutzen zu können.',
+                                    'rights.notifications.registeredsuccess',
                                 );
                                 push('/login');
                             })
@@ -131,7 +131,7 @@ export const RightsProvider = ({ client, secret, children }: RightsProviderProps
                         api.forgotPassword(email)
                             .then(() => {
                                 showInfo(
-                                    'Sie erhalten eine Mail mit Anweisungen, wie das Passwort neu vergeben werden kann.',
+                                    'rights.notifications.forgotpasswordsuccess',
                                 );
                                 push('/resetpassword');
                             })
@@ -140,7 +140,7 @@ export const RightsProvider = ({ client, secret, children }: RightsProviderProps
                     resetPassword: (email, code, newPassword) => {
                         api.resetPassword(email, code, newPassword)
                             .then(() => {
-                                showInfo('Das Passwort wurde erfolgreich zurückgesetzt.');
+                                showInfo('rights.notifications.resetpasswordsuccess');
                                 push('/login');
                             })
                             .catch((reason) => showError(reason));
@@ -148,7 +148,7 @@ export const RightsProvider = ({ client, secret, children }: RightsProviderProps
                     changePassword: (oldPassword, newPassword) => {
                         api.changePassword(value.token as string, oldPassword, newPassword)
                             .then(() => {
-                                showInfo('Das Passwort wurde erfolgreich geändert.');
+                                showInfo('rights.notifications.changepasswordsuccess');
                             })
                             .catch((reason) => showError(reason));
                     },

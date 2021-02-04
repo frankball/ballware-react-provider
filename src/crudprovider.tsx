@@ -151,7 +151,7 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
 
                     itemSaveFunc(mapOutgoingItem(saveItem))
                         .then(() => {
-                            showInfo('Speichern erfolgreich');
+                            showInfo('editing.notifications.saved');
                             setValue((previousValue) => {
                                 return {
                                     ...previousValue,
@@ -177,7 +177,7 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
 
                     itemSaveBatchFunc(mappedItems)
                         .then(() => {
-                            showInfo('Speichern erfolgreich');
+                            showInfo('editing.notifications.saved');
                             setValue((previousValue) => {
                                 return {
                                     ...previousValue,
@@ -199,7 +199,7 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
                 drop: (id) => {
                     itemRemoveFunc(id)
                         .then(() => {
-                            showInfo('Löschen erfolgreich');
+                            showInfo('editing.notifications.removed');
                             setValue((previousValue) => {
                                 return {
                                     ...previousValue,

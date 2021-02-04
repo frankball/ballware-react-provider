@@ -45,7 +45,7 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
                         });
                     } else {
                         setDocumentationEntity(undefined);
-                        showInfo('Keine Dokumentation hinterlegt');
+                        showInfo('documentation.notifications.nodocumentation');
                     }
                 })
                 .catch((reason) => showError(reason));
