@@ -1,4 +1,11 @@
-import React, { useState, useEffect } from 'react';
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+import React, { useState, useEffect, PropsWithChildren } from 'react';
 
 import { ProviderFactoryContext, ProviderFactoryContextState } from '@ballware/react-contexts';
 import { LookupProvider } from './lookupprovider';
@@ -7,15 +14,20 @@ import { MetaProvider } from './metaprovider';
 import { CrudProvider } from './crudprovider';
 import { NotificationProvider } from './notificationprovider';
 import { TenantProvider } from './tenantprovider';
-import { RightsProvider } from './rightsprovider';
+import { ResourceOwnerRightsProvider } from './resourceownerrightsprovider';
 import { StatisticProvider } from './statisticprovider';
 import { EditProvider } from './editprovider';
 
+/**
+ * Provider factory properties
+ */
 export interface ProviderFactoryProps {
-    children: JSX.Element | Array<JSX.Element>;
 }
 
-export const ProviderFactory = ({ children }: ProviderFactoryProps): JSX.Element => {
+/**
+ * Provides functional provider factory components
+ */
+export const ProviderFactory = ({ children }: PropsWithChildren<ProviderFactoryProps>): JSX.Element => {
     const [value, setValue] = useState({} as ProviderFactoryContextState);
 
     useEffect(() => {
@@ -26,7 +38,7 @@ export const ProviderFactory = ({ children }: ProviderFactoryProps): JSX.Element
             LookupProvider,
             NotificationProvider,
             TenantProvider,
-            RightsProvider,
+            ResourceOwnerRightsProvider,
             EditProvider,
             StatisticProvider,
         } as ProviderFactoryContextState);

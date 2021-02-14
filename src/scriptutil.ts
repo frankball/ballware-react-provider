@@ -1,3 +1,10 @@
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
 import { v4 as uuid } from 'uuid';
 import JSON5 from 'json5';
 import moment from 'moment';
@@ -7,6 +14,7 @@ import { ScriptUtil } from '@ballware/meta-interface';
 import { LookupDescriptor, LookupStoreDescriptor } from '@ballware/react-contexts';
 import { geocodeAddress, geocodeLocation } from './geocoder';
 
+/*
 export const nameof = <T>(name: keyof T): keyof T => name;
 export const nameofFactory = <T>() => (name: keyof T): keyof T => name;
 
@@ -25,43 +33,49 @@ export function mapToArray<T>(map: { [key: string]: T }): Array<T> {
 
     return result;
 }
+*/
 
-export function beginOfYear(): Date {
+function beginOfYear(): Date {
     const m = moment().startOf('year').utc();
 
     return moment(m).add(m.utcOffset(), 'm').toDate();
 }
 
-export function endOfYear(): Date {
+function endOfYear(): Date {
     const m = moment().endOf('year').utc();
 
     return moment(m).add(m.utcOffset(), 'm').toDate();
 }
 
-export function beginOfLastYear(): Date {
+function beginOfLastYear(): Date {
     const m = moment().startOf('year').utc();
 
     return moment(m).add(m.utcOffset(), 'm').subtract(1, 'year').toDate();
 }
 
-export function endOfLastYear(): Date {
+function endOfLastYear(): Date {
     const m = moment().endOf('year').utc();
 
     return moment(m).add(m.utcOffset(), 'm').subtract(1, 'year').toDate();
 }
 
-export function dateToLocalDate(date: Date): Date | null {
+function dateToLocalDate(date: Date): Date | undefined {
     if (date) return moment(date).toDate();
 
-    return null;
+    return undefined;
 }
 
-export function localDateToDate(date: Date): Date | null {
+function localDateToDate(date: Date): Date | undefined {
     if (date) return moment(date).add(moment(date).utcOffset(), 'm').toDate();
 
-    return null;
+    return undefined;
 }
 
+/**
+ * Creates util object containing functionality for custom scripts
+ * @param token Token used for authenticated webservice requests
+ * @returns Generated util object
+ */
 export const createUtil = (token: string): ScriptUtil => {
     return {
         token: () => token,

@@ -1,7 +1,14 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { CompiledEntityMetadata, EntityRights, CrudItem, hasRight } from '@ballware/meta-interface';
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+import React, { useState, useEffect, useContext, PropsWithChildren } from 'react';
+import { CompiledEntityMetadata, EntityRights, CrudItem, hasRight, QueryParams } from '@ballware/meta-interface';
 import {
-    RightsContext,
+    ResourceOwnerRightsContext,
     MetaContext,
     MetaContextState,
     SettingsContext,
@@ -12,28 +19,49 @@ import {
 import { createUtil } from './scriptutil';
 import { useHistory } from 'react-router-dom';
 
+/**
+ * Properties for generic meta provider
+ */
 export interface MetaProviderProps {
-    children: JSX.Element | Array<JSX.Element>;
+
+    /**
+     * Entity identifier of generic entity
+     */
     entity: string;
+
+    /**
+     * Provide only readonly functionality
+     */
     readOnly: boolean;
-    headParams?: Record<string, unknown>;
+
+    /**
+     * Optional paraemeter provided by parent component (page and suchlike)
+     */
+    headParams?: QueryParams;
+
+    /**
+     * Custom param provided by parent component
+     */
     initialCustomParam: Record<string, unknown>;
 }
 
+/**
+ * Provides functionality for use of generic entities
+ */
 export const MetaProvider = ({
     entity,
     readOnly,
     headParams,
     initialCustomParam,
     children,
-}: MetaProviderProps): JSX.Element => {
+}: PropsWithChildren<MetaProviderProps>): JSX.Element => {
     const [value, setValue] = useState({} as MetaContextState);
     const [metaData, setMetaData] = useState<CompiledEntityMetadata | undefined>();
     const [customParam, setCustomParam] = useState<Record<string, unknown> | undefined>();
     const [documents, setDocuments] = useState<Array<{ id: string; text: string }> | undefined>();
 
-    const { metaEntityApiFactory, metaAttachmentApiFactory, metaGenericEntityApiFactory } = useContext(SettingsContext);
-    const { token, rights } = useContext(RightsContext);
+    const { metaEntityApiFactory, metaGenericEntityApiFactory } = useContext(SettingsContext);
+    const { token, rights } = useContext(ResourceOwnerRightsContext);
     const { lookups, lookupsComplete, createLookups } = useContext(LookupContext);
     const { showError } = useContext(NotificationContext);
 
@@ -90,7 +118,7 @@ export const MetaProvider = ({
                     addAllowed: () => headAllowed(EntityRights.RIGHT_ADD),
                     viewAllowed: (item) => itemAllowed(item, EntityRights.RIGHT_VIEW),
                     editAllowed: (item) => itemAllowed(item, EntityRights.RIGHT_EDIT),
-                    deleteAllowed: (item) => itemAllowed(item, EntityRights.RIGHT_DELETE),
+                    dropAllowed: (item) => itemAllowed(item, EntityRights.RIGHT_DELETE),
                     printAllowed: (item) => documents?.length > 0 && itemAllowed(item, EntityRights.RIGHT_PRINT),
                     customFunctionAllowed: (item, customFunction) =>
                         item ? itemAllowed(item, customFunction.id) : headAllowed(customFunction.id),
@@ -280,11 +308,9 @@ export const MetaProvider = ({
             metaData &&
             customParam &&
             lookupsComplete &&
-            metaGenericEntityApiFactory &&
-            metaAttachmentApiFactory
+            metaGenericEntityApiFactory
         ) {
             const entityApi = metaGenericEntityApiFactory(metaData.baseUrl);
-            const attachmentApi = metaAttachmentApiFactory();
 
             setValue((previousValue) => {
                 return {
@@ -301,16 +327,12 @@ export const MetaProvider = ({
                         metaData.itemReverseMappingScript
                             ? metaData.itemReverseMappingScript(item, customParam, createUtil(token))
                             : item,
-                    itemQueryFunc: (query, params) => entityApi.entityQuery(token, query, params),
-                    itemByIdFunc: (id) => entityApi.entityById(token, id),
-                    itemNewFunc: (params) => entityApi.entityNew(token, params),
-                    itemSaveFunc: (item) => entityApi.entitySave(token, item),
-                    itemSaveBatchFunc: (items) => entityApi.entitySaveBatch(token, items),
-                    itemRemoveFunc: (id) => entityApi.entityRemove(token, id),
-                    attachmentFetchFunc: (id) => attachmentApi.attachmentFetch(token, id),
-                    attachmentUploadFunc: (id, file) => attachmentApi.attachmentUpload(token, id, file),
-                    attachmentOpenFunc: (id, fileName) => attachmentApi.attachmentOpen(token, id, fileName),
-                    attachmentDeleteFunc: (id, fileName) => attachmentApi.attachmentDelete(token, id, fileName),
+                    query: (query, params) => entityApi.query(token, query, params),
+                    byId: (id) => entityApi.byId(token, id),
+                    create: (params) => entityApi.new(token, params),
+                    save: (item) => entityApi.save(token, item),
+                    saveBatch: (items) => entityApi.saveBatch(token, items),
+                    drop: (id) => entityApi.drop(token, id),
 
                     prepareCustomFunction: (identifier, selection, execute, message) => {
                         if (metaData.compiledCustomScripts?.prepareCustomFunction) {
@@ -474,7 +496,7 @@ export const MetaProvider = ({
                 } as MetaContextState;
             });
         }
-    }, [token, metaData, lookups, lookupsComplete, customParam, metaGenericEntityApiFactory, metaAttachmentApiFactory]);
+    }, [token, metaData, lookups, lookupsComplete, customParam, metaGenericEntityApiFactory]);
 
     return <MetaContext.Provider value={value}>{children}</MetaContext.Provider>;
 };

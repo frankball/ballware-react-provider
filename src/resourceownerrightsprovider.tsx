@@ -1,44 +1,69 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { SessionWithUserInfo } from '@ballware/identity-interface';
-import { Rights } from '@ballware/meta-interface';
-import { RightsContext, RightsContextState, PersistedRightsState } from '@ballware/react-contexts';
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+import React, { useState, useEffect, useContext, PropsWithChildren } from 'react';
+import { ResourceOwnerRightsContext, RightsContextState, PersistedResourceOwnerRightsState } from '@ballware/react-contexts';
 import { SettingsContext, NotificationContext } from '@ballware/react-contexts';
 import moment from 'moment';
 import { useHistory } from 'react-router-dom';
+import { MappedSessionWithUserRights, UserInfoMappingFunc } from '@ballware/identity-interface';
 
-export interface RightsProviderProps {
+/**
+ * Resource owner rights provider properties
+ */
+export interface ResourceOwnerRightsProviderProps {
+    /**
+     * Client id for auth provider
+     */
     client: string;
+
+    /**
+     * Client secret for auth provider
+     */
     secret: string;
-    children: JSX.Element | Array<JSX.Element>;
+
+    /**
+     * Mapping function to map additional content of userinfo endpoint to user rights instance
+     */
+    userinfoMapper: UserInfoMappingFunc;
 }
 
-interface MappedSessionWithUserInfo extends SessionWithUserInfo {
-    person?: string;
-    tenant: string;
-    rights: Array<string>;
-}
-
-function loadInitialRightsState(): PersistedRightsState {
+/**
+ * Initialize rights provider state from application store
+ */
+function loadInitialRightsState(): PersistedResourceOwnerRightsState {
     const storeRights = localStorage.getItem('state.rights');
 
     if (storeRights) {
-        const rights = JSON.parse(storeRights) as PersistedRightsState;
+        const rights = JSON.parse(storeRights) as PersistedResourceOwnerRightsState;
 
         if (rights && rights.timeout_in && new Date(rights.timeout_in) <= new Date()) {
-            return {} as PersistedRightsState;
+            return {} as PersistedResourceOwnerRightsState;
         } else {
             return rights;
         }
     }
 
-    return {} as PersistedRightsState;
+    return {} as PersistedResourceOwnerRightsState;
 }
 
-function storeRightsState(state: PersistedRightsState): void {
+/**
+ * Store current rights provider state to application store
+ * @param Current rights provider state
+ */
+function storeRightsState(state: PersistedResourceOwnerRightsState): void {
     localStorage.setItem('state.rights', JSON.stringify(state));
 }
 
-export const RightsProvider = ({ client, secret, children }: RightsProviderProps): JSX.Element => {
+/**
+ * Provides authentication functionality via ressource owner flow
+ */
+export const ResourceOwnerRightsProvider = ({ client, secret, userinfoMapper, children }
+    : PropsWithChildren<ResourceOwnerRightsProviderProps>): JSX.Element => {
     const [value, setValue] = useState(loadInitialRightsState() as RightsContextState);
 
     const { identityAuthApiFactory, version } = useContext(SettingsContext);
@@ -50,33 +75,12 @@ export const RightsProvider = ({ client, secret, children }: RightsProviderProps
             setValue((previousValue) => {
                 const api = identityAuthApiFactory();
 
-                const userinfoMapper = (
-                    session: SessionWithUserInfo,
-                    userinfo: Record<string, unknown>,
-                ): MappedSessionWithUserInfo => {
-                    const mappedSession = { ...session } as MappedSessionWithUserInfo;
-
-                    mappedSession.person = userinfo.person as string;
-                    mappedSession.tenant = userinfo.tenant as string;
-                    mappedSession.rights = userinfo.right as Array<string>;
-
-                    return mappedSession;
-                };
-
                 return {
                     ...previousValue,
                     version: version,
                     login: (username, password, redirect) => {
-                        api.login<MappedSessionWithUserInfo>(username, password, client, secret, userinfoMapper)
-                            .then((session) => {
-                                const rights = {
-                                    BenutzerId: session.identifier,
-                                    Email: session.email,
-                                    PersonId: session.person,
-                                    TenantId: session.tenant,
-                                    Claims: session.rights,
-                                } as Rights;
-
+                        api.login<MappedSessionWithUserRights>(username, password, client, secret, userinfoMapper)
+                            .then((session) => {                                
                                 setValue((previousValue) => {
                                     return {
                                         ...previousValue,
@@ -84,7 +88,7 @@ export const RightsProvider = ({ client, secret, children }: RightsProviderProps
                                         refresh_token: session.refresh_token,
                                         expires_in: session.expires_in,
                                         issued: new Date(),
-                                        rights: rights,
+                                        rights: session.rights,
                                         timeout_in: session.expires_in
                                             ? moment(new Date()).add(session.expires_in, 'seconds').toDate()
                                             : undefined,
@@ -178,7 +182,7 @@ export const RightsProvider = ({ client, secret, children }: RightsProviderProps
     useEffect(() => {
         if (push && value) {
             storeRightsState({
-                ...(value as PersistedRightsState),
+                ...(value as PersistedResourceOwnerRightsState),
             });
 
             if (!value.rights) {
@@ -187,5 +191,5 @@ export const RightsProvider = ({ client, secret, children }: RightsProviderProps
         }
     }, [push, value]);
 
-    return <RightsContext.Provider value={value}>{children}</RightsContext.Provider>;
+    return <ResourceOwnerRightsContext.Provider value={value}>{children}</ResourceOwnerRightsContext.Provider>;
 };

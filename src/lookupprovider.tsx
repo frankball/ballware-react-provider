@@ -1,4 +1,11 @@
-import React, { useContext, useState, useEffect, useCallback } from 'react';
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+import React, { useContext, useState, useEffect, useCallback, PropsWithChildren } from 'react';
 import {
     LookupContext,
     LookupContextState,
@@ -9,12 +16,14 @@ import {
     LookupStoreDescriptor,
     AutocompleteStoreDescriptor,
 } from '@ballware/react-contexts';
-import { SettingsContext, RightsContext } from '@ballware/react-contexts';
+import { SettingsContext, ResourceOwnerRightsContext } from '@ballware/react-contexts';
 import { IdentityUserApi, IdentityRoleApi } from '@ballware/identity-interface';
 import { MetaLookupApi, MetaProcessingstateApi, MetaPickvalueApi } from '@ballware/meta-interface';
 
+/**
+ * Properties for lookup provider
+ */
 export interface LookupProviderProps {
-    children: JSX.Element | Array<JSX.Element>;
 }
 
 const createUserLookup = (
@@ -189,7 +198,10 @@ const createGenericLookupByIdentifier = (
     } as LookupDescriptor;
 };
 
-export const LookupProvider = ({ children }: LookupProviderProps): JSX.Element => {
+/**
+ * Provides lookup functionality to child items
+ */
+export const LookupProvider = ({ children }: PropsWithChildren<LookupProviderProps>): JSX.Element => {
     const [requestedLookups, setRequestedLookups] = useState([] as Array<string>);
     const [lookupsComplete, setLookupsComplete] = useState(false);
     const [lookups, setLookups] = useState<
@@ -202,7 +214,7 @@ export const LookupProvider = ({ children }: LookupProviderProps): JSX.Element =
         metaPickvalueApiFactory,
         metaProcessingstateApiFactory,
     } = useContext(SettingsContext);
-    const { token } = useContext(RightsContext);
+    const { token } = useContext(ResourceOwnerRightsContext);
 
     const getGenericLookupByIdentifier = useCallback(
         (identifier: string, valueExpr: string, displayExpr: string) => {

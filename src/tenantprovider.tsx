@@ -1,17 +1,31 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+import React, { useState, useEffect, useContext, useCallback, PropsWithChildren } from 'react';
 import { CompiledTenant, NavigationLayoutItem } from '@ballware/meta-interface';
 import {
     TenantContext,
     TenantContextState,
-    RightsContext,
+    ResourceOwnerRightsContext,
     SettingsContext,
     NotificationContext,
 } from '@ballware/react-contexts';
 
-export interface TenantProviderProps {
-    children: JSX.Element | Array<JSX.Element>;
+/**
+ * Properties for tenant provider
+ */
+export interface TenantProviderProps {    
 }
 
+/**
+ * Find pages in navigation tree
+ * @param items navigation tree
+ * @returns List of pages found in tree
+ */
 const findPages = (items: Array<NavigationLayoutItem>) => {
     const foundPages = [] as Array<NavigationLayoutItem>;
 
@@ -26,13 +40,16 @@ const findPages = (items: Array<NavigationLayoutItem>) => {
     return foundPages;
 };
 
-export const TenantProvider = ({ children }: TenantProviderProps): JSX.Element => {
+/**
+ * Provides tenant specific operations
+ */
+export const TenantProvider = ({ children }: PropsWithChildren<TenantProviderProps>): JSX.Element => {
     const [tenant, setTenant] = useState<CompiledTenant>();
     const [pages, setPages] = useState<Array<NavigationLayoutItem>>();
     const [value, setValue] = useState({} as TenantContextState);
 
     const { metaTenantApiFactory } = useContext(SettingsContext);
-    const { rights, token } = useContext(RightsContext);
+    const { rights, token } = useContext(ResourceOwnerRightsContext);
     const { showError } = useContext(NotificationContext);
 
     const pageAllowed = useCallback(

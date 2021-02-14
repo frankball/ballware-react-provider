@@ -1,3 +1,5 @@
+@ballware/react-provider / [Exports](modules.md)
+
 Provides reference context provider implementations for client applications based on ballware application builder framework.
 
 ## ballware application builder

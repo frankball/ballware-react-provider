@@ -1,22 +1,50 @@
-import React, { useState, useEffect } from 'react';
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+import React, { useState, useEffect, PropsWithChildren } from 'react';
 import { EditModes, EditContext, EditContextState } from '@ballware/react-contexts';
 import { CrudItem, ValueType, EditLayout } from '@ballware/meta-interface';
 
+/**
+ * Edit provider properties
+ */
 export interface EditProviderProps {
-    children: JSX.Element | Array<JSX.Element>;
+
+    /**
+     * Edit layout used for edit operation
+     */
     editLayout: EditLayout | undefined;
+
+    /**
+     * Item to be edited
+     */
     item: CrudItem | Array<CrudItem> | ValueType;
+
+    /**
+     * Edit mode for edit operation
+     */
     mode: EditModes;
+
+    /**
+     * Custom edit function identifier if custom edit operation
+     */
     functionIdentifier?: string;
 }
 
+/**
+ * Provides edit container for editing single item or collection of items
+ */
 export const EditProvider = ({
     item,
     mode,
     functionIdentifier,
     editLayout,
     children,
-}: EditProviderProps): JSX.Element => {
+}: PropsWithChildren<EditProviderProps>): JSX.Element => {
     const [changedItem, setChangedItem] = useState(item);
     const [value, setValue] = useState({
         mode: mode,

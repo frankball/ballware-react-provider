@@ -1,5 +1,20 @@
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+/**
+ * External declaration of google api (needed to be included separatly)
+ */
 declare let google: any;
 
+/**
+ * Try to find coordinates for an address string
+ * @param address Address used to find coordinates
+ * @param success Callback executed when search has finished
+ */
 export const geocodeAddress = (address: string, success: (location: { lat: number; lng: number }) => void): void => {
     const geocoder = new google.maps.Geocoder();
 
@@ -13,7 +28,12 @@ export const geocodeAddress = (address: string, success: (location: { lat: numbe
     );
 };
 
-export const geocodeLocation = (
+/**
+ * Try to find address for coordinates
+ * @param location Coordinates to find address for
+ * @param success Callback executed when search has finished
+ */
+export const geocodeLocation = (    
     location: { lat: number; lng: number },
     success: (
         addresses: Array<{ street?: string; houseNumber?: string; zipCode?: string; city?: string; country?: string }>,

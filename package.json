@@ -1,6 +1,6 @@
 {
   "name": "@ballware/react-provider",
-  "version": "6.0.0-beta7",
+  "version": "6.0.0-rc1",
   "description": "Ballware Application Builder - React provider for contexts",
   "license": "MIT",
   "author": "frank@ballmeyer.com",
@@ -28,7 +28,8 @@
     "lint": "tsdx lint --fix",
     "prepare": "tsdx build",
     "size": "size-limit",
-    "analyze": "size-limit --why"
+    "analyze": "size-limit --why",
+    "docs": "typedoc --plugin typedoc-plugin-markdown"
   },
   "peerDependencies": {
     "react": ">=16",
@@ -70,12 +71,14 @@
     "size-limit": "^4.9.1",
     "tsdx": "^0.14.1",
     "tslib": "^2.1.0",
+    "typedoc": "^0.20.19",
+    "typedoc-plugin-markdown": "^3.4.5",
     "typescript": "^4.1.3"
   },
   "dependencies": {
-    "@ballware/identity-interface": "^6.0.0-beta1",
-    "@ballware/meta-interface": "^6.0.0-beta2",
-    "@ballware/react-contexts": "^6.0.0-beta6",
+    "@ballware/identity-interface": "^6.0.2",
+    "@ballware/meta-interface": "^6.0.1",
+    "@ballware/react-contexts": "^6.0.4",
     "axios": "^0.21.1",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",

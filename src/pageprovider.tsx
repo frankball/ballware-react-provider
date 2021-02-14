@@ -1,9 +1,16 @@
-import React, { useState, useEffect, useContext, useCallback, useMemo } from 'react';
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+import React, { useState, useEffect, useContext, useCallback, useMemo, PropsWithChildren } from 'react';
 import { CompiledPageData, ScriptActions, EditUtil, ValueType } from '@ballware/meta-interface';
 import {
     PageContext,
     PageContextState,
-    RightsContext,
+    ResourceOwnerRightsContext,
     SettingsContext,
     NotificationContext,
     LookupContext,
@@ -11,12 +18,21 @@ import {
 } from '@ballware/react-contexts';
 import { createUtil } from './scriptutil';
 
+/**
+ * Properties for page provider
+ */
 export interface PageProviderProps {
-    children: JSX.Element | Array<JSX.Element>;
+
+    /**
+     * Identifier of page to use
+     */
     identifier: string;
 }
 
-export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.Element => {
+/**
+ * Provides screen page functionality based on page metadata
+ */
+export const PageProvider = ({ identifier, children }: PropsWithChildren<PageProviderProps>): JSX.Element => {
     const [documentationEntity, setDocumentationEntity] = useState<string | undefined>();
     const [pageData, setPageData] = useState<CompiledPageData | undefined>();
     const [pageParam, setPageParam] = useState<Record<string, unknown> | undefined>();
@@ -25,7 +41,7 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
 
     const { metaPageApiFactory, metaDocumentationApiFactory } = useContext(SettingsContext);
     const { showInfo, showError } = useContext(NotificationContext);
-    const { token } = useContext(RightsContext);
+    const { token } = useContext(ResourceOwnerRightsContext);
     const { createLookups, lookups, lookupsComplete } = useContext(LookupContext);
 
     const loadDocumentation = (entity: string) => setDocumentationEntity(entity);
@@ -225,7 +241,7 @@ export const PageProvider = ({ identifier, children }: PageProviderProps): JSX.E
 
     useEffect(() => {
         if (pageData) {
-            if (!pageData.layout?.searchparams) {
+            if (!pageData.layout?.toolbaritems) {
                 setPageParam({});
             }
         }

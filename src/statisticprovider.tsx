@@ -1,24 +1,43 @@
-import React, { useState, useEffect, useContext } from 'react';
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+import React, { useState, useEffect, useContext, PropsWithChildren } from 'react';
 import {
     StatisticContext,
     StatisticContextState,
-    RightsContext,
+    ResourceOwnerRightsContext,
     NotificationContext,
     SettingsContext,
     PageContext,
     LookupContext,
 } from '@ballware/react-contexts';
-import { CompiledStatistic, StatisticLayout } from '@ballware/meta-interface';
+import { CompiledStatistic, QueryParams, StatisticLayout } from '@ballware/meta-interface';
 import cloneDeep from 'lodash/cloneDeep';
 import { createUtil } from './scriptutil';
 
+/**
+ * Properties for statistic provider
+ */
 export interface StatisticProviderProps {
+    /**
+     * Unique identifier of statistic item
+     */
     identifier: string;
-    params: Record<string, unknown> | undefined;
-    children: JSX.Element | Array<JSX.Element>;
+
+    /**
+     * Query params used to fetch statistic payload
+     */
+    params?: QueryParams;
 }
 
-const MyStatisticProvider = ({ children, identifier, params }: StatisticProviderProps): JSX.Element => {
+/**
+ * Provides statistic metadata and payload
+ */
+export const StatisticProvider = ({ children, identifier, params }: PropsWithChildren<StatisticProviderProps>): JSX.Element => {
     const [value, setValue] = useState({} as StatisticContextState);
     const [metaData, setMetaData] = useState<CompiledStatistic | undefined>();
     const [layout, setLayout] = useState<StatisticLayout | undefined>();
@@ -26,7 +45,7 @@ const MyStatisticProvider = ({ children, identifier, params }: StatisticProvider
 
     const { metaStatisticApiFactory } = useContext(SettingsContext);
     const { showError } = useContext(NotificationContext);
-    const { token } = useContext(RightsContext);
+    const { token } = useContext(ResourceOwnerRightsContext);
     const { customParam } = useContext(PageContext);
     const { lookups, lookupsComplete } = useContext(LookupContext);
 
@@ -124,5 +143,3 @@ const MyStatisticProvider = ({ children, identifier, params }: StatisticProvider
 
     return <StatisticContext.Provider value={value}>{children}</StatisticContext.Provider>;
 };
-
-export const StatisticProvider = MyStatisticProvider;

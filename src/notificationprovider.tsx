@@ -1,4 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+import React, { useState, useEffect, useCallback, PropsWithChildren } from 'react';
 import {
     NotificationContext,
     NotificationContextState,
@@ -6,11 +13,16 @@ import {
     NotificationDisplayContextState,
 } from '@ballware/react-contexts';
 
+/**
+ * Properties for notification provider
+ */
 export interface NotificationProviderProps {
-    children: JSX.Element | Array<JSX.Element>;
 }
 
-export const NotificationProvider = ({ children }: NotificationProviderProps): JSX.Element => {
+/**
+ * Provides functionality for triggering and displaying user notifications
+ */
+export const NotificationProvider = ({ children }: PropsWithChildren<NotificationProviderProps>): JSX.Element => {
     const [value, setValue] = useState<NotificationContextState>({});
     const [displayValue, setDisplayValue] = useState<NotificationDisplayContextState>({});
     const [message, setMessage] = useState<{ type: 'error' | 'info' | 'warning'; text: string } | undefined>();

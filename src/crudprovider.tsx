@@ -1,14 +1,33 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { CrudItem } from '@ballware/meta-interface';
+/**
+ * @license
+ * Copyright 2021 Frank Ballmeyer
+ * This code is released under the MIT license.
+ * SPDX-License-Identifier: MIT
+ */
+
+import React, { useState, useEffect, useContext, PropsWithChildren } from 'react';
+import { CrudItem, QueryParams } from '@ballware/meta-interface';
 import { CrudContext, CrudContextState, MetaContext, NotificationContext } from '@ballware/react-contexts';
 
+/**
+ * Properties for crud provider component
+ */
 export interface CrudProviderProps {
+    /**
+     * Query identifier used for querying item list
+     */
     query: string | undefined;
-    initialFetchParams: Record<string, unknown> | undefined;
-    children: JSX.Element | Array<JSX.Element>;
+
+    /**
+     * Fetch params prepared in parent container (page, parent entity)
+     */
+    initialFetchParams?: QueryParams;
 }
 
-export const CrudProvider = ({ query, initialFetchParams, children }: CrudProviderProps): JSX.Element => {
+/**
+ * Provides crud operations for parent generic metadata context
+ */
+export const CrudProvider = ({ query: queryIdentifier, initialFetchParams, children }: PropsWithChildren<CrudProviderProps>): JSX.Element => {
     const [value, setValue] = useState({} as CrudContextState);
     const [refreshing, setRefreshing] = useState(false);
     const [fetchParams, setFetchParams] = useState(initialFetchParams ?? {});
@@ -19,12 +38,12 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
         mapIncomingItem,
         mapOutgoingItem,
         headParams,
-        itemQueryFunc,
-        itemNewFunc,
-        itemByIdFunc,
-        itemSaveFunc,
-        itemSaveBatchFunc,
-        itemRemoveFunc,
+        query,
+        create,
+        byId,
+        save,
+        saveBatch,
+        drop,
     } = useContext(MetaContext);
 
     useEffect(() => {
@@ -34,12 +53,13 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
             prepareCustomFunction &&
             mapIncomingItem &&
             mapOutgoingItem &&
-            itemQueryFunc &&
-            itemNewFunc &&
-            itemByIdFunc &&
-            itemSaveFunc &&
-            itemSaveBatchFunc &&
-            itemRemoveFunc &&
+            query &&
+            create &&
+            byId &&
+            save &&
+            saveBatch &&
+            drop &&
+            queryIdentifier &&
             fetchParams
         ) {
             setValue({
@@ -53,7 +73,7 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
                             };
                         });
 
-                        itemQueryFunc(query, params)
+                        query(queryIdentifier, params)
                             .then((result: Array<CrudItem>) => {
                                 setValue((previousValue) => {
                                     return {
@@ -76,7 +96,7 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
                     }
                 },
                 add: (editLayout) => {
-                    itemNewFunc(headParams)
+                    create(headParams)
                         .then((result) => {
                             setValue((previousValue) => {
                                 return {
@@ -90,7 +110,7 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
                         .catch((reason) => showError(reason));
                 },
                 view: (id, editLayout) => {
-                    itemByIdFunc(id)
+                    byId(id)
                         .then((result) => {
                             setValue((previousValue) => {
                                 return {
@@ -104,7 +124,7 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
                         .catch((reason) => showError(reason));
                 },
                 edit: (id, editLayout) => {
-                    itemByIdFunc(id)
+                    byId(id)
                         .then((result) => {
                             setValue((previousValue) => {
                                 return {
@@ -134,7 +154,7 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
                     });
                 },
                 remove: (id) => {
-                    itemByIdFunc(id)
+                    byId(id)
                         .then((result) => {
                             setValue((previousValue) => {
                                 return {
@@ -149,7 +169,7 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
                 save: (item) => {
                     const saveItem = { ...item };
 
-                    itemSaveFunc(mapOutgoingItem(saveItem))
+                    save(mapOutgoingItem(saveItem))
                         .then(() => {
                             showInfo('editing.notifications.saved');
                             setValue((previousValue) => {
@@ -175,7 +195,7 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
                 saveBatch: (items) => {
                     const mappedItems = items.map((i) => mapOutgoingItem(i));
 
-                    itemSaveBatchFunc(mappedItems)
+                    saveBatch(mappedItems)
                         .then(() => {
                             showInfo('editing.notifications.saved');
                             setValue((previousValue) => {
@@ -197,7 +217,7 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
                         .catch((reason) => showError(reason));
                 },
                 drop: (id) => {
-                    itemRemoveFunc(id)
+                    drop(id)
                         .then(() => {
                             showInfo('editing.notifications.removed');
                             setValue((previousValue) => {
@@ -245,12 +265,12 @@ export const CrudProvider = ({ query, initialFetchParams, children }: CrudProvid
         prepareCustomFunction,
         mapIncomingItem,
         mapOutgoingItem,
-        itemQueryFunc,
-        itemNewFunc,
-        itemByIdFunc,
-        itemSaveFunc,
-        itemSaveBatchFunc,
-        itemRemoveFunc,
+        query,
+        create,
+        byId,
+        save,
+        saveBatch,
+        drop,
         headParams,
         query,
     ]);
