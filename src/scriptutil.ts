@@ -59,16 +59,16 @@ function endOfLastYear(): Date {
     return moment(m).add(m.utcOffset(), 'm').subtract(1, 'year').toDate();
 }
 
-function dateToLocalDate(date: Date): Date | undefined {
+function dateToLocalDate(date: Date): Date | null {
     if (date) return moment(date).toDate();
 
-    return undefined;
+    return null;
 }
 
-function localDateToDate(date: Date): Date | undefined {
+function localDateToDate(date: Date): Date | null {
     if (date) return moment(date).add(moment(date).utcOffset(), 'm').toDate();
 
-    return undefined;
+    return null;
 }
 
 /**

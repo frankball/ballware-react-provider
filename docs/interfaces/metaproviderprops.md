@@ -25,7 +25,7 @@ Properties for generic meta provider
 
 Entity identifier of generic entity
 
-Defined in: [src/metaprovider.tsx:30](https://github.com/frankball/ballware-react-provider/blob/1f3134b/src/metaprovider.tsx#L30)
+Defined in: [src/metaprovider.tsx:30](https://github.com/frankball/ballware-react-provider/blob/1c8774d/src/metaprovider.tsx#L30)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 Optional paraemeter provided by parent component (page and suchlike)
 
-Defined in: [src/metaprovider.tsx:40](https://github.com/frankball/ballware-react-provider/blob/1f3134b/src/metaprovider.tsx#L40)
+Defined in: [src/metaprovider.tsx:40](https://github.com/frankball/ballware-react-provider/blob/1c8774d/src/metaprovider.tsx#L40)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 Custom param provided by parent component
 
-Defined in: [src/metaprovider.tsx:45](https://github.com/frankball/ballware-react-provider/blob/1f3134b/src/metaprovider.tsx#L45)
+Defined in: [src/metaprovider.tsx:45](https://github.com/frankball/ballware-react-provider/blob/1c8774d/src/metaprovider.tsx#L45)
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 Provide only readonly functionality
 
-Defined in: [src/metaprovider.tsx:35](https://github.com/frankball/ballware-react-provider/blob/1f3134b/src/metaprovider.tsx#L35)
+Defined in: [src/metaprovider.tsx:35](https://github.com/frankball/ballware-react-provider/blob/1c8774d/src/metaprovider.tsx#L35)
