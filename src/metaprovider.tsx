@@ -120,8 +120,8 @@ export const MetaProvider = ({
                     editAllowed: (item) => itemAllowed(item, EntityRights.RIGHT_EDIT),
                     dropAllowed: (item) => itemAllowed(item, EntityRights.RIGHT_DELETE),
                     printAllowed: (item) => documents?.length > 0 && itemAllowed(item, EntityRights.RIGHT_PRINT),
-                    customFunctionAllowed: (item, customFunction) =>
-                        item ? itemAllowed(item, customFunction.id) : headAllowed(customFunction.id),
+                    customFunctionAllowed: (customFunction, item) =>
+                        (customFunction.type === 'edit' && item) ? itemAllowed(item, customFunction.id) : headAllowed(customFunction.id),
                 } as MetaContextState;
             });
         }
