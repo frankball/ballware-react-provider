@@ -94,20 +94,28 @@ export const ResourceOwnerRightsProvider = ({
   const { push, replace } = useHistory();
 
   useEffect(() => {
-    const persistedState = loadInitialRightsState();
+    if (push) {
+      const persistedState = loadInitialRightsState();
 
-    if (persistedState) {
-      if (persistedState.token) {
-        setToken(persistedState.token);
+      if (persistedState) {
+        if (persistedState.token) {
+          setToken(persistedState.token);
+        }
+
+        if (persistedState.refresh_token) {
+          setRefreshToken(persistedState.refresh_token);
+        }
+
+        setValue(persistedState);
+
+        if (!persistedState.rights) {
+          push('/login');
+        }
+      } else {
+        push('/login');
       }
-
-      if (persistedState.refresh_token) {
-        setRefreshToken(persistedState.refresh_token);
-      }
-
-      setValue(persistedState);
     }
-  }, []);
+  }, [push]);
 
   useEffect(() => {
     if (
@@ -184,6 +192,7 @@ export const ResourceOwnerRightsProvider = ({
                   };
                 });
                 showInfo('rights.notifications.logoutsuccess');
+                push('/login');
               })
               .catch(reason => showError(reason));
           },
@@ -264,16 +273,10 @@ export const ResourceOwnerRightsProvider = ({
   ]);
 
   useEffect(() => {
-    if (push && value) {
-      storeRightsState({
-        ...(value as PersistedResourceOwnerRightsState),
-      });
-
-      if (!value.rights) {
-        push('/login');
-      }
-    }
-  }, [push, value]);
+    storeRightsState({
+      ...(value as PersistedResourceOwnerRightsState),
+    });
+  }, [value]);
 
   return (
     <ResourceOwnerRightsContext.Provider value={value}>
