@@ -7,6 +7,6 @@ export * from './notificationprovider';
 export * from './pageprovider';
 export * from './resourceownerrightsprovider';
 export * from './settingsprovider';
-export * from './statisticprovider'; 
+export * from './statisticprovider';
 export * from './tenantprovider';
 export * from './providerfactory';

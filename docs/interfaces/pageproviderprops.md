@@ -22,4 +22,4 @@ Properties for page provider
 
 Identifier of page to use
 
-Defined in: [src/pageprovider.tsx:29](https://github.com/frankball/ballware-react-provider/blob/e3d0cae/src/pageprovider.tsx#L29)
+Defined in: [src/pageprovider.tsx:40](https://github.com/frankball/ballware-react-provider/blob/607a72e/src/pageprovider.tsx#L40)

@@ -5,16 +5,28 @@
  * SPDX-License-Identifier: MIT
  */
 
-import React, { useState, useEffect, useContext, useCallback, useMemo, PropsWithChildren } from 'react';
-import { CompiledPageData, ScriptActions, EditUtil, ValueType } from '@ballware/meta-interface';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useMemo,
+  PropsWithChildren,
+} from 'react';
 import {
-    PageContext,
-    PageContextState,
-    ResourceOwnerRightsContext,
-    SettingsContext,
-    NotificationContext,
-    LookupContext,
-    LookupRequest,
+  CompiledPageData,
+  ScriptActions,
+  EditUtil,
+  ValueType,
+} from '@ballware/meta-interface';
+import {
+  PageContext,
+  PageContextState,
+  ResourceOwnerRightsContext,
+  SettingsContext,
+  NotificationContext,
+  LookupContext,
+  LookupRequest,
 } from '@ballware/react-contexts';
 import { createUtil } from './scriptutil';
 
@@ -22,241 +34,277 @@ import { createUtil } from './scriptutil';
  * Properties for page provider
  */
 export interface PageProviderProps {
-
-    /**
-     * Identifier of page to use
-     */
-    identifier: string;
+  /**
+   * Identifier of page to use
+   */
+  identifier: string;
 }
 
 /**
  * Provides screen page functionality based on page metadata
  */
-export const PageProvider = ({ identifier, children }: PropsWithChildren<PageProviderProps>): JSX.Element => {
-    const [documentationEntity, setDocumentationEntity] = useState<string | undefined>();
-    const [pageData, setPageData] = useState<CompiledPageData | undefined>();
-    const [pageParam, setPageParam] = useState<Record<string, unknown> | undefined>();
-    const [customParam, setCustomParam] = useState<unknown | undefined>();
-    const [value, setValue] = useState({} as PageContextState);
+export const PageProvider = ({
+  identifier,
+  children,
+}: PropsWithChildren<PageProviderProps>): JSX.Element => {
+  const [documentationEntity, setDocumentationEntity] = useState<
+    string | undefined
+  >();
+  const [pageData, setPageData] = useState<CompiledPageData | undefined>();
+  const [pageParam, setPageParam] = useState<
+    Record<string, unknown> | undefined
+  >();
+  const [customParam, setCustomParam] = useState<unknown | undefined>();
+  const [value, setValue] = useState({} as PageContextState);
 
-    const { metaPageApiFactory, metaDocumentationApiFactory } = useContext(SettingsContext);
-    const { showInfo, showError } = useContext(NotificationContext);
-    const { token } = useContext(ResourceOwnerRightsContext);
-    const { createLookups, lookups, lookupsComplete } = useContext(LookupContext);
+  const { metaPageApiFactory, metaDocumentationApiFactory } = useContext(
+    SettingsContext
+  );
+  const { showInfo, showError } = useContext(NotificationContext);
+  const { token } = useContext(ResourceOwnerRightsContext);
+  const { createLookups, lookups, lookupsComplete } = useContext(LookupContext);
 
-    const loadDocumentation = (entity: string) => setDocumentationEntity(entity);
+  const loadDocumentation = useCallback(
+    (entity: string) => setDocumentationEntity(entity),
+    [setDocumentationEntity]
+  );
 
-    useEffect(() => {
-        if (showError && showInfo && metaDocumentationApiFactory && token && documentationEntity) {
-            const api = metaDocumentationApiFactory();
+  useEffect(() => {
+    if (
+      showError &&
+      showInfo &&
+      metaDocumentationApiFactory &&
+      token &&
+      documentationEntity
+    ) {
+      const api = metaDocumentationApiFactory();
 
-            api.loadDocumentationForEntity(token, documentationEntity)
-                .then((result) => {
-                    if (result) {
-                        setValue((previousValue) => {
-                            return {
-                                ...previousValue,
-                                documentation: result,
-                            } as PageContextState;
-                        });
-                    } else {
-                        setDocumentationEntity(undefined);
-                        showInfo('documentation.notifications.nodocumentation');
-                    }
-                })
-                .catch((reason) => showError(reason));
-        } else {
-            setValue((previousValue) => {
-                return {
-                    ...previousValue,
-                    documentation: undefined,
-                } as PageContextState;
-            });
-        }
-    }, [showError, showInfo, metaDocumentationApiFactory, token, documentationEntity]);
-
-    const resetDocumentation = useCallback(() => {
-        setDocumentationEntity(undefined);
-        setValue((previousValue) => {
-            return {
+      api
+        .loadDocumentationForEntity(token, documentationEntity)
+        .then(result => {
+          if (result) {
+            setValue(previousValue => {
+              return {
                 ...previousValue,
-                documentation: undefined,
-            } as PageContextState;
-        });
-    }, []);
-
-    const scriptActions = useMemo(() => {
+                documentation: result,
+              } as PageContextState;
+            });
+          } else {
+            setDocumentationEntity(undefined);
+            showInfo('documentation.notifications.nodocumentation');
+          }
+        })
+        .catch(reason => showError(reason));
+    } else {
+      setValue(previousValue => {
         return {
-            loadData: (params) => {
-                setPageParam(params);
-            }
-        } as ScriptActions;
-    }, []);
+          ...previousValue,
+          documentation: undefined,
+        } as PageContextState;
+      });
+    }
+  }, [
+    showError,
+    showInfo,
+    metaDocumentationApiFactory,
+    token,
+    documentationEntity,
+  ]);
 
-    useEffect(() => {
-        setValue({
-            loadDocumentation,
-            resetDocumentation,
-        } as PageContextState);
-    }, []);
+  const resetDocumentation = useCallback(() => {
+    setDocumentationEntity(undefined);
+    setValue(previousValue => {
+      return {
+        ...previousValue,
+        documentation: undefined,
+      } as PageContextState;
+    });
+  }, []);
 
-    useEffect(() => {
-        if (showError && metaPageApiFactory && identifier && token) {
-            const api = metaPageApiFactory();
+  const scriptActions = useMemo(() => {
+    return {
+      loadData: params => {
+        setPageParam(params);
+      },
+    } as ScriptActions;
+  }, []);
 
-            api.pageDataForIdentifier(token, identifier)
-                .then((result) => {
-                    setPageData(result);
-                })
-                .catch((reason) => showError(reason));
+  useEffect(() => {
+    setValue({
+      loadDocumentation,
+      resetDocumentation,
+    } as PageContextState);
+  }, [loadDocumentation, resetDocumentation]);
+
+  useEffect(() => {
+    if (showError && metaPageApiFactory && identifier && token) {
+      const api = metaPageApiFactory();
+
+      api
+        .pageDataForIdentifier(token, identifier)
+        .then(result => {
+          setPageData(result);
+        })
+        .catch(reason => showError(reason));
+    }
+  }, [showError, metaPageApiFactory, identifier, token]);
+
+  useEffect(() => {
+    if (token && pageData && lookups && lookupsComplete) {
+      if (pageData.compiledCustomScripts?.prepareCustomParam) {
+        pageData.compiledCustomScripts.prepareCustomParam(
+          lookups,
+          createUtil(token),
+          p => {
+            setCustomParam(p);
+          }
+        );
+      } else {
+        setCustomParam({});
+      }
+
+      const paramsInitialized = (hidden: boolean) => {
+        if (pageData.compiledCustomScripts?.paramsInitialized) {
+          pageData.compiledCustomScripts?.paramsInitialized(
+            hidden,
+            lookups,
+            createUtil(token),
+            scriptActions
+          );
         }
-    }, [showError, metaPageApiFactory, identifier, token]);
+      };
 
-    useEffect(() => {
-        if (token && pageData && lookups && lookupsComplete) {
-            if (pageData.compiledCustomScripts?.prepareCustomParam) {
-                pageData.compiledCustomScripts.prepareCustomParam(lookups, createUtil(token), (p) => {
-                    setCustomParam(p);
-                });
-            } else {
-                setCustomParam({});
-            }
-
-            const paramsInitialized = (hidden: boolean) => {
-                if (pageData.compiledCustomScripts?.paramsInitialized) {
-                    pageData.compiledCustomScripts?.paramsInitialized(hidden, lookups, createUtil(token), scriptActions);
-                }
-            };
-
-            const paramEditorInitialized = (name: string, editUtil: EditUtil) => {
-                if (pageData.compiledCustomScripts?.paramEditorInitialized) {
-                    pageData.compiledCustomScripts?.paramEditorInitialized(
-                        name,
-                        editUtil,
-                        lookups,
-                        createUtil(token),
-                        scriptActions,
-                    );
-                }
-            };
-
-            const paramEditorValueChanged = (
-                name: string,
-                value: ValueType,
-                editUtil: EditUtil,
-            ) => {
-                if (pageData.compiledCustomScripts?.paramEditorValueChanged) {
-                    pageData.compiledCustomScripts?.paramEditorValueChanged(
-                        name,
-                        value,
-                        editUtil,
-                        lookups,
-                        createUtil(token),
-                        scriptActions,
-                    );
-                }
-            };
-
-            const paramEditorEvent = (
-                name: string,
-                event: string,
-                editUtil: EditUtil,
-                param?: Record<string, unknown>,
-            ) => {
-                if (pageData.compiledCustomScripts?.paramEditorEvent) {
-                    pageData.compiledCustomScripts?.paramEditorEvent(
-                        name,
-                        event,
-                        editUtil,
-                        lookups,
-                        createUtil(token),
-                        scriptActions,
-                        param,
-                    );
-                }
-            };
-
-            setValue((previousValue) => {
-                return {
-                    ...previousValue,
-                    layout: pageData.layout,
-                    paramsInitialized,
-                    paramEditorInitialized,
-                    paramEditorValueChanged,
-                    paramEditorEvent,
-                } as PageContextState;
-            });
+      const paramEditorInitialized = (name: string, editUtil: EditUtil) => {
+        if (pageData.compiledCustomScripts?.paramEditorInitialized) {
+          pageData.compiledCustomScripts?.paramEditorInitialized(
+            name,
+            editUtil,
+            lookups,
+            createUtil(token),
+            scriptActions
+          );
         }
-    }, [token, pageData, lookups, lookupsComplete]);
+      };
 
-    useEffect(() => {
-        if (createLookups && pageData) {
-            const lookupRequests = pageData.lookups?.map((l) => {
-                if (l.type === 1) {
-                    if (l.hasParam) {
-                        return {
-                            type: 'autocompletewithparam',
-                            identifier: l.identifier,
-                            lookupId: l.id,
-                        } as LookupRequest;
-                    } else {
-                        return { type: 'autocomplete', identifier: l.identifier, lookupId: l.id } as LookupRequest;
-                    }
-                } else {
-                    if (l.hasParam) {
-                        return {
-                            type: 'lookupwithparam',
-                            identifier: l.identifier,
-                            lookupId: l.id,
-                            valueMember: l.valueMember,
-                            displayMember: l.displayMember,
-                        } as LookupRequest;
-                    } else {
-                        return {
-                            type: 'lookup',
-                            identifier: l.identifier,
-                            lookupId: l.id,
-                            valueMember: l.valueMember,
-                            displayMember: l.displayMember,
-                        } as LookupRequest;
-                    }
-                }
-            });
-
-            createLookups(lookupRequests);
+      const paramEditorValueChanged = (
+        name: string,
+        value: ValueType,
+        editUtil: EditUtil
+      ) => {
+        if (pageData.compiledCustomScripts?.paramEditorValueChanged) {
+          pageData.compiledCustomScripts?.paramEditorValueChanged(
+            name,
+            value,
+            editUtil,
+            lookups,
+            createUtil(token),
+            scriptActions
+          );
         }
-    }, [createLookups, pageData]);
+      };
 
-    useEffect(() => {
-        if (pageData && customParam) {
-            setValue((previousValue) => {
-                return {
-                    ...previousValue,
-                    pageData: pageData,
-                    customParam: customParam,                    
-                } as PageContextState;
-            });
+      const paramEditorEvent = (
+        name: string,
+        event: string,
+        editUtil: EditUtil,
+        param?: Record<string, unknown>
+      ) => {
+        if (pageData.compiledCustomScripts?.paramEditorEvent) {
+          pageData.compiledCustomScripts?.paramEditorEvent(
+            name,
+            event,
+            editUtil,
+            lookups,
+            createUtil(token),
+            scriptActions,
+            param
+          );
         }
-    }, [pageData, customParam]);
+      };
 
-    useEffect(() => {
-        if (pageData) {
-            if (!pageData.layout?.toolbaritems) {
-                setPageParam({});
-            }
-        }
-    }, [pageData]);
+      setValue(previousValue => {
+        return {
+          ...previousValue,
+          layout: pageData.layout,
+          paramsInitialized,
+          paramEditorInitialized,
+          paramEditorValueChanged,
+          paramEditorEvent,
+        } as PageContextState;
+      });
+    }
+  }, [token, pageData, lookups, lookupsComplete, scriptActions]);
 
-    useEffect(() => {
-
-        setValue((previousValue) => {
+  useEffect(() => {
+    if (createLookups && pageData) {
+      const lookupRequests = pageData.lookups?.map(l => {
+        if (l.type === 1) {
+          if (l.hasParam) {
             return {
-                ...previousValue,
-                pageParam: pageParam
-            } as PageContextState;
-        });
+              type: 'autocompletewithparam',
+              identifier: l.identifier,
+              lookupId: l.id,
+            } as LookupRequest;
+          } else {
+            return {
+              type: 'autocomplete',
+              identifier: l.identifier,
+              lookupId: l.id,
+            } as LookupRequest;
+          }
+        } else {
+          if (l.hasParam) {
+            return {
+              type: 'lookupwithparam',
+              identifier: l.identifier,
+              lookupId: l.id,
+              valueMember: l.valueMember,
+              displayMember: l.displayMember,
+            } as LookupRequest;
+          } else {
+            return {
+              type: 'lookup',
+              identifier: l.identifier,
+              lookupId: l.id,
+              valueMember: l.valueMember,
+              displayMember: l.displayMember,
+            } as LookupRequest;
+          }
+        }
+      });
 
-    }, [pageParam])
+      createLookups(lookupRequests);
+    }
+  }, [createLookups, pageData]);
 
-    return <PageContext.Provider value={value}>{children}</PageContext.Provider>;
+  useEffect(() => {
+    if (pageData && customParam) {
+      setValue(previousValue => {
+        return {
+          ...previousValue,
+          pageData: pageData,
+          customParam: customParam,
+        } as PageContextState;
+      });
+    }
+  }, [pageData, customParam]);
+
+  useEffect(() => {
+    if (pageData) {
+      if (!pageData.layout?.toolbaritems) {
+        setPageParam({});
+      }
+    }
+  }, [pageData]);
+
+  useEffect(() => {
+    setValue(previousValue => {
+      return {
+        ...previousValue,
+        pageParam: pageParam,
+      } as PageContextState;
+    });
+  }, [pageParam]);
+
+  return <PageContext.Provider value={value}>{children}</PageContext.Provider>;
 };

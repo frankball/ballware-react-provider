@@ -23,7 +23,7 @@ Properties for crud provider component
 
 Fetch params prepared in parent container (page, parent entity)
 
-Defined in: [src/crudprovider.tsx:24](https://github.com/frankball/ballware-react-provider/blob/e3d0cae/src/crudprovider.tsx#L24)
+Defined in: [src/crudprovider.tsx:34](https://github.com/frankball/ballware-react-provider/blob/607a72e/src/crudprovider.tsx#L34)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 Query identifier used for querying item list
 
-Defined in: [src/crudprovider.tsx:19](https://github.com/frankball/ballware-react-provider/blob/e3d0cae/src/crudprovider.tsx#L19)
+Defined in: [src/crudprovider.tsx:29](https://github.com/frankball/ballware-react-provider/blob/607a72e/src/crudprovider.tsx#L29)

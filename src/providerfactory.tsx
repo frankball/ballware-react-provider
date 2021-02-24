@@ -7,7 +7,10 @@
 
 import React, { useState, useEffect, PropsWithChildren } from 'react';
 
-import { ProviderFactoryContext, ProviderFactoryContextState } from '@ballware/react-contexts';
+import {
+  ProviderFactoryContext,
+  ProviderFactoryContextState,
+} from '@ballware/react-contexts';
 import { LookupProvider } from './lookupprovider';
 import { PageProvider } from './pageprovider';
 import { MetaProvider } from './metaprovider';
@@ -22,29 +25,34 @@ import { EditProvider } from './editprovider';
 /**
  * Provider factory properties
  */
-export interface ProviderFactoryProps {
-}
+export interface ProviderFactoryProps {}
 
 /**
  * Provides functional provider factory components
  */
-export const ProviderFactory = ({ children }: PropsWithChildren<ProviderFactoryProps>): JSX.Element => {
-    const [value, setValue] = useState({} as ProviderFactoryContextState);
+export const ProviderFactory = ({
+  children,
+}: PropsWithChildren<ProviderFactoryProps>): JSX.Element => {
+  const [value, setValue] = useState({} as ProviderFactoryContextState);
 
-    useEffect(() => {
-        setValue({
-            PageProvider,
-            MetaProvider,
-            AttachmentProvider,
-            CrudProvider,
-            LookupProvider,
-            NotificationProvider,
-            TenantProvider,
-            ResourceOwnerRightsProvider,
-            EditProvider,
-            StatisticProvider,
-        } as ProviderFactoryContextState);
-    }, []);
+  useEffect(() => {
+    setValue({
+      PageProvider,
+      MetaProvider,
+      AttachmentProvider,
+      CrudProvider,
+      LookupProvider,
+      NotificationProvider,
+      TenantProvider,
+      ResourceOwnerRightsProvider,
+      EditProvider,
+      StatisticProvider,
+    } as ProviderFactoryContextState);
+  }, []);
 
-    return <ProviderFactoryContext.Provider value={value}>{children}</ProviderFactoryContext.Provider>;
+  return (
+    <ProviderFactoryContext.Provider value={value}>
+      {children}
+    </ProviderFactoryContext.Provider>
+  );
 };

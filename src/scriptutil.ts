@@ -11,7 +11,10 @@ import moment from 'moment';
 import axios from 'axios';
 
 import { ScriptUtil } from '@ballware/meta-interface';
-import { LookupDescriptor, LookupStoreDescriptor } from '@ballware/react-contexts';
+import {
+  LookupDescriptor,
+  LookupStoreDescriptor,
+} from '@ballware/react-contexts';
 import { geocodeAddress, geocodeLocation } from './geocoder';
 
 /*
@@ -36,39 +39,60 @@ export function mapToArray<T>(map: { [key: string]: T }): Array<T> {
 */
 
 function beginOfYear(): Date {
-    const m = moment().startOf('year').utc();
+  const m = moment()
+    .startOf('year')
+    .utc();
 
-    return moment(m).add(m.utcOffset(), 'm').toDate();
+  return moment(m)
+    .add(m.utcOffset(), 'm')
+    .toDate();
 }
 
 function endOfYear(): Date {
-    const m = moment().endOf('year').utc();
+  const m = moment()
+    .endOf('year')
+    .utc();
 
-    return moment(m).add(m.utcOffset(), 'm').toDate();
+  return moment(m)
+    .add(m.utcOffset(), 'm')
+    .toDate();
 }
 
 function beginOfLastYear(): Date {
-    const m = moment().startOf('year').utc();
+  const m = moment()
+    .startOf('year')
+    .utc();
 
-    return moment(m).add(m.utcOffset(), 'm').subtract(1, 'year').toDate();
+  return moment(m)
+    .add(m.utcOffset(), 'm')
+    .subtract(1, 'year')
+    .toDate();
 }
 
 function endOfLastYear(): Date {
-    const m = moment().endOf('year').utc();
+  const m = moment()
+    .endOf('year')
+    .utc();
 
-    return moment(m).add(m.utcOffset(), 'm').subtract(1, 'year').toDate();
+  return moment(m)
+    .add(m.utcOffset(), 'm')
+    .subtract(1, 'year')
+    .toDate();
 }
 
 function dateToLocalDate(date: Date): Date | null {
-    if (date) return moment(date).toDate();
+  if (date) return moment(date).toDate();
 
-    return null;
+  return null;
 }
 
 function localDateToDate(date: Date): Date | null {
-    if (date) return moment(date).add(moment(date).utcOffset(), 'm').toDate();
+  if (date)
+    return moment(date)
+      .add(moment(date).utcOffset(), 'm')
+      .toDate();
 
-    return null;
+  return null;
 }
 
 /**
@@ -77,62 +101,72 @@ function localDateToDate(date: Date): Date | null {
  * @returns Generated util object
  */
 export const createUtil = (token: string): ScriptUtil => {
-    return {
-        token: () => token,
-        uuid: () => uuid(),
-        parse: (json) => JSON5.parse(json),
-        stringify: (json) => JSON5.stringify(json),
-        dateToLocalDate: (date) => dateToLocalDate(date),
-        localDateToDate: (date) => localDateToDate(date),
-        beginOfYear: () => beginOfYear(),
-        endOfYear: () => endOfYear(),
-        beginOfLastYear: () => beginOfLastYear(),
-        endOfLastYear: () => endOfLastYear(),
-        withLookupList: (lookup: unknown, callback: (items: Array<Record<string, unknown>>) => void) => {
-            ((lookup as LookupDescriptor).store as LookupStoreDescriptor)
-                .listFunc()
-                .then((result) => {
-                    callback(result);
-                })
-                .catch((reason) => console.error(reason));
-        },
-        withLookupById: (lookup: unknown, id: string, callback: (item?: Record<string, unknown>) => void) => {
-            ((lookup as LookupDescriptor).store as LookupStoreDescriptor)
-                .byIdFunc(id)
-                .then((result) => {
-                    callback(result);
-                })
-                .catch((reason) => console.error(reason));
-        },
-        withAutocompleteList: (autocomplete: unknown, callback: (items: Array<unknown>) => void) => {
-            (autocomplete as LookupDescriptor).store
-                .listFunc()
-                .then((result) => {
-                    callback(result);
-                })
-                .catch((reason) => console.error(reason));
-        },
-        getJson: (url, success, failure) => {
-            axios
-                .get<unknown>(url, { headers: { Authorization: `Bearer ${token}` } })
-                .then((response) => {
-                    success(response.data);
-                })
-                .catch((reason) => failure(reason));
-        },
-        getText: (url, success, failure) => {
-            axios
-                .get<string>(url, { headers: { Authorization: `Bearer ${token}` } })
-                .then((response) => {
-                    success(response.data);
-                })
-                .catch((reason) => failure(reason));
-        },
-        geocodeAddress: (address, callback) => {
-            geocodeAddress(address, callback);
-        },
-        geocodeLocation: (location, callback) => {
-            geocodeLocation(location, callback);
-        },
-    } as ScriptUtil;
+  return {
+    token: () => token,
+    uuid: () => uuid(),
+    parse: json => JSON5.parse(json),
+    stringify: json => JSON5.stringify(json),
+    dateToLocalDate: date => dateToLocalDate(date),
+    localDateToDate: date => localDateToDate(date),
+    beginOfYear: () => beginOfYear(),
+    endOfYear: () => endOfYear(),
+    beginOfLastYear: () => beginOfLastYear(),
+    endOfLastYear: () => endOfLastYear(),
+    withLookupList: (
+      lookup: unknown,
+      callback: (items: Array<Record<string, unknown>>) => void
+    ) => {
+      ((lookup as LookupDescriptor).store as LookupStoreDescriptor)
+        .listFunc()
+        .then(result => {
+          callback(result);
+        })
+        .catch(reason => console.error(reason));
+    },
+    withLookupById: (
+      lookup: unknown,
+      id: string,
+      callback: (item?: Record<string, unknown>) => void
+    ) => {
+      ((lookup as LookupDescriptor).store as LookupStoreDescriptor)
+        .byIdFunc(id)
+        .then(result => {
+          callback(result);
+        })
+        .catch(reason => console.error(reason));
+    },
+    withAutocompleteList: (
+      autocomplete: unknown,
+      callback: (items: Array<unknown>) => void
+    ) => {
+      (autocomplete as LookupDescriptor).store
+        .listFunc()
+        .then(result => {
+          callback(result);
+        })
+        .catch(reason => console.error(reason));
+    },
+    getJson: (url, success, failure) => {
+      axios
+        .get<unknown>(url, { headers: { Authorization: `Bearer ${token}` } })
+        .then(response => {
+          success(response.data);
+        })
+        .catch(reason => failure(reason));
+    },
+    getText: (url, success, failure) => {
+      axios
+        .get<string>(url, { headers: { Authorization: `Bearer ${token}` } })
+        .then(response => {
+          success(response.data);
+        })
+        .catch(reason => failure(reason));
+    },
+    geocodeAddress: (address, callback) => {
+      geocodeAddress(address, callback);
+    },
+    geocodeLocation: (location, callback) => {
+      geocodeLocation(location, callback);
+    },
+  } as ScriptUtil;
 };

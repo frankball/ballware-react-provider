@@ -23,7 +23,7 @@ Properties for statistic provider
 
 Unique identifier of statistic item
 
-Defined in: [src/statisticprovider.tsx:29](https://github.com/frankball/ballware-react-provider/blob/e3d0cae/src/statisticprovider.tsx#L29)
+Defined in: [src/statisticprovider.tsx:38](https://github.com/frankball/ballware-react-provider/blob/607a72e/src/statisticprovider.tsx#L38)
 
 ___
 
@@ -33,4 +33,4 @@ ___
 
 Query params used to fetch statistic payload
 
-Defined in: [src/statisticprovider.tsx:34](https://github.com/frankball/ballware-react-provider/blob/e3d0cae/src/statisticprovider.tsx#L34)
+Defined in: [src/statisticprovider.tsx:43](https://github.com/frankball/ballware-react-provider/blob/607a72e/src/statisticprovider.tsx#L43)
