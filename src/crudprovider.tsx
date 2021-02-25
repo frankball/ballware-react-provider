@@ -73,12 +73,11 @@ export const CrudProvider = ({
       save &&
       saveBatch &&
       drop &&
-      queryIdentifier &&
       fetchParams
     ) {
       setValue({
         fetchParams: fetchParams,
-        load: params => {
+        load: queryIdentifier ? params => {
           if (query) {
             setValue(previousValue => {
               return {
@@ -108,7 +107,7 @@ export const CrudProvider = ({
                 });
               });
           }
-        },
+        } : undefined,
         add: editLayout => {
           create(headParams)
             .then(result => {

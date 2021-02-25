@@ -48,7 +48,7 @@ Provides attachment operations for files attached to records with unique owner i
 
 **Returns:** *Element*
 
-Defined in: [src/attachmentprovider.tsx:29](https://github.com/frankball/ballware-react-provider/blob/654966e/src/attachmentprovider.tsx#L29)
+Defined in: [src/attachmentprovider.tsx:29](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/attachmentprovider.tsx#L29)
 
 ___
 
@@ -64,7 +64,7 @@ Provides crud operations for parent generic metadata context
 
 **Returns:** *Element*
 
-Defined in: [src/crudprovider.tsx:40](https://github.com/frankball/ballware-react-provider/blob/654966e/src/crudprovider.tsx#L40)
+Defined in: [src/crudprovider.tsx:40](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/crudprovider.tsx#L40)
 
 ___
 
@@ -80,7 +80,7 @@ Provides edit container for editing single item or collection of items
 
 **Returns:** *Element*
 
-Defined in: [src/editprovider.tsx:44](https://github.com/frankball/ballware-react-provider/blob/654966e/src/editprovider.tsx#L44)
+Defined in: [src/editprovider.tsx:44](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/editprovider.tsx#L44)
 
 ___
 
@@ -96,7 +96,7 @@ Provides lookup functionality to child items
 
 **Returns:** *Element*
 
-Defined in: [src/lookupprovider.tsx:230](https://github.com/frankball/ballware-react-provider/blob/654966e/src/lookupprovider.tsx#L230)
+Defined in: [src/lookupprovider.tsx:230](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/lookupprovider.tsx#L230)
 
 ___
 
@@ -112,7 +112,7 @@ Provides functionality for use of generic entities
 
 **Returns:** *Element*
 
-Defined in: [src/metaprovider.tsx:61](https://github.com/frankball/ballware-react-provider/blob/654966e/src/metaprovider.tsx#L61)
+Defined in: [src/metaprovider.tsx:61](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/metaprovider.tsx#L61)
 
 ___
 
@@ -128,7 +128,7 @@ Provides functionality for triggering and displaying user notifications
 
 **Returns:** *Element*
 
-Defined in: [src/notificationprovider.tsx:29](https://github.com/frankball/ballware-react-provider/blob/654966e/src/notificationprovider.tsx#L29)
+Defined in: [src/notificationprovider.tsx:29](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/notificationprovider.tsx#L29)
 
 ___
 
@@ -144,7 +144,7 @@ Provides screen page functionality based on page metadata
 
 **Returns:** *Element*
 
-Defined in: [src/pageprovider.tsx:46](https://github.com/frankball/ballware-react-provider/blob/654966e/src/pageprovider.tsx#L46)
+Defined in: [src/pageprovider.tsx:46](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/pageprovider.tsx#L46)
 
 ___
 
@@ -160,7 +160,7 @@ Provides functional provider factory components
 
 **Returns:** *Element*
 
-Defined in: [src/providerfactory.tsx:33](https://github.com/frankball/ballware-react-provider/blob/654966e/src/providerfactory.tsx#L33)
+Defined in: [src/providerfactory.tsx:33](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/providerfactory.tsx#L33)
 
 ___
 
@@ -176,7 +176,7 @@ Provides authentication functionality via ressource owner flow
 
 **Returns:** *Element*
 
-Defined in: [src/resourceownerrightsprovider.tsx:81](https://github.com/frankball/ballware-react-provider/blob/654966e/src/resourceownerrightsprovider.tsx#L81)
+Defined in: [src/resourceownerrightsprovider.tsx:81](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/resourceownerrightsprovider.tsx#L81)
 
 ___
 
@@ -192,7 +192,7 @@ Provides environment dependent settings and data access
 
 **Returns:** *Element*
 
-Defined in: [src/settingsprovider.tsx:120](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L120)
+Defined in: [src/settingsprovider.tsx:120](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L120)
 
 ___
 
@@ -208,7 +208,7 @@ Provides statistic metadata and payload
 
 **Returns:** *Element*
 
-Defined in: [src/statisticprovider.tsx:49](https://github.com/frankball/ballware-react-provider/blob/654966e/src/statisticprovider.tsx#L49)
+Defined in: [src/statisticprovider.tsx:49](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/statisticprovider.tsx#L49)
 
 ___
 
@@ -224,4 +224,4 @@ Provides tenant specific operations
 
 **Returns:** *Element*
 
-Defined in: [src/tenantprovider.tsx:51](https://github.com/frankball/ballware-react-provider/blob/654966e/src/tenantprovider.tsx#L51)
+Defined in: [src/tenantprovider.tsx:51](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/tenantprovider.tsx#L51)

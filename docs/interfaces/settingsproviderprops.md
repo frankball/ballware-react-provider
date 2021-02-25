@@ -37,7 +37,7 @@ Properties for settings provider
 
 Current app version for display
 
-Defined in: [src/settingsprovider.tsx:39](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L39)
+Defined in: [src/settingsprovider.tsx:39](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L39)
 
 ___
 
@@ -47,7 +47,7 @@ ___
 
 Google API key used by maps implementation
 
-Defined in: [src/settingsprovider.tsx:44](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L44)
+Defined in: [src/settingsprovider.tsx:44](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L44)
 
 ___
 
@@ -57,7 +57,7 @@ ___
 
 API factory for resource owner authentication functions
 
-Defined in: [src/settingsprovider.tsx:49](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L49)
+Defined in: [src/settingsprovider.tsx:49](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L49)
 
 ___
 
@@ -67,7 +67,7 @@ ___
 
 API factory for access to role list
 
-Defined in: [src/settingsprovider.tsx:59](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L59)
+Defined in: [src/settingsprovider.tsx:59](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L59)
 
 ___
 
@@ -77,7 +77,7 @@ ___
 
 API factory for access to user list
 
-Defined in: [src/settingsprovider.tsx:54](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L54)
+Defined in: [src/settingsprovider.tsx:54](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L54)
 
 ___
 
@@ -87,7 +87,7 @@ ___
 
 API factory to access attachments
 
-Defined in: [src/settingsprovider.tsx:74](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L74)
+Defined in: [src/settingsprovider.tsx:74](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L74)
 
 ___
 
@@ -97,7 +97,7 @@ ___
 
 API factory to access print document lists
 
-Defined in: [src/settingsprovider.tsx:99](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L99)
+Defined in: [src/settingsprovider.tsx:99](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L99)
 
 ___
 
@@ -107,7 +107,7 @@ ___
 
 API factory to access documentation
 
-Defined in: [src/settingsprovider.tsx:104](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L104)
+Defined in: [src/settingsprovider.tsx:104](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L104)
 
 ___
 
@@ -117,7 +117,7 @@ ___
 
 API factory to access generic entity metadata
 
-Defined in: [src/settingsprovider.tsx:64](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L64)
+Defined in: [src/settingsprovider.tsx:64](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L64)
 
 ___
 
@@ -127,7 +127,7 @@ ___
 
 API factory to access generic entity crud operations
 
-Defined in: [src/settingsprovider.tsx:114](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L114)
+Defined in: [src/settingsprovider.tsx:114](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L114)
 
 ___
 
@@ -137,7 +137,7 @@ ___
 
 API factory to access lookup data
 
-Defined in: [src/settingsprovider.tsx:84](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L84)
+Defined in: [src/settingsprovider.tsx:84](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L84)
 
 ___
 
@@ -147,7 +147,7 @@ ___
 
 API factory to access page metadata
 
-Defined in: [src/settingsprovider.tsx:109](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L109)
+Defined in: [src/settingsprovider.tsx:109](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L109)
 
 ___
 
@@ -157,7 +157,7 @@ ___
 
 API factory to access pickvalue data
 
-Defined in: [src/settingsprovider.tsx:94](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L94)
+Defined in: [src/settingsprovider.tsx:94](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L94)
 
 ___
 
@@ -167,7 +167,7 @@ ___
 
 API factory to access processing state functionality
 
-Defined in: [src/settingsprovider.tsx:89](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L89)
+Defined in: [src/settingsprovider.tsx:89](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L89)
 
 ___
 
@@ -177,7 +177,7 @@ ___
 
 API factory to access statistic metadata and data
 
-Defined in: [src/settingsprovider.tsx:79](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L79)
+Defined in: [src/settingsprovider.tsx:79](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L79)
 
 ___
 
@@ -187,4 +187,4 @@ ___
 
 API factory to access tenant metadata
 
-Defined in: [src/settingsprovider.tsx:69](https://github.com/frankball/ballware-react-provider/blob/654966e/src/settingsprovider.tsx#L69)
+Defined in: [src/settingsprovider.tsx:69](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/settingsprovider.tsx#L69)
