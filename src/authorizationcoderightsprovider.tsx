@@ -351,7 +351,7 @@ export const AuthorizationCodeRightsProvider = ({
         return {
           ...previousValue,
           manageAccount: () => {
-            push(account_management_uri);
+            window.open(account_management_uri);
           },
         };
       });

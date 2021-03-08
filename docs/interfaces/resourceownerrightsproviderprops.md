@@ -24,7 +24,7 @@ Resource owner rights provider properties
 
 Client id for auth provider
 
-Defined in: [src/resourceownerrightsprovider.tsx:34](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/resourceownerrightsprovider.tsx#L34)
+Defined in: [src/resourceownerrightsprovider.tsx:34](https://github.com/frankball/ballware-react-provider/blob/5745264/src/resourceownerrightsprovider.tsx#L34)
 
 ___
 
@@ -34,7 +34,7 @@ ___
 
 Client secret for auth provider
 
-Defined in: [src/resourceownerrightsprovider.tsx:39](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/resourceownerrightsprovider.tsx#L39)
+Defined in: [src/resourceownerrightsprovider.tsx:39](https://github.com/frankball/ballware-react-provider/blob/5745264/src/resourceownerrightsprovider.tsx#L39)
 
 ___
 
@@ -44,4 +44,4 @@ ___
 
 Mapping function to map additional content of userinfo endpoint to user rights instance
 
-Defined in: [src/resourceownerrightsprovider.tsx:44](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/resourceownerrightsprovider.tsx#L44)
+Defined in: [src/resourceownerrightsprovider.tsx:44](https://github.com/frankball/ballware-react-provider/blob/5745264/src/resourceownerrightsprovider.tsx#L44)
