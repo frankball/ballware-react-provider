@@ -36,7 +36,7 @@ export interface SettingsProviderProps {
   /**
    * Current app version for display
    */
-  appversion: string;
+  appversion?: string;
 
   /**
    * Google API key used by maps implementation
@@ -46,72 +46,72 @@ export interface SettingsProviderProps {
   /**
    * API factory for resource owner authentication functions
    */
-  identityAuthApiFactory: () => ResourceOwnerAuthApi;
+  identityAuthApiFactory?: () => ResourceOwnerAuthApi;
 
   /**
    * API factory for access to user list
    */
-  identityUserApiFactory: () => IdentityUserApi;
+  identityUserApiFactory?: () => IdentityUserApi;
 
   /**
    * API factory for access to role list
    */
-  identityRoleApiFactory: () => IdentityRoleApi;
+  identityRoleApiFactory?: () => IdentityRoleApi;
 
   /**
    * API factory to access generic entity metadata
    */
-  metaEntityApiFactory: () => MetaEntityApi;
+  metaEntityApiFactory?: () => MetaEntityApi;
 
   /**
    * API factory to access tenant metadata
    */
-  metaTenantApiFactory: () => MetaTenantApi;
+  metaTenantApiFactory?: () => MetaTenantApi;
 
   /**
    * API factory to access attachments
    */
-  metaAttachmentApiFactory: () => MetaAttachmentApi;
+  metaAttachmentApiFactory?: () => MetaAttachmentApi;
 
   /**
    * API factory to access statistic metadata and data
    */
-  metaStatisticApiFactory: () => MetaStatisticApi;
+  metaStatisticApiFactory?: () => MetaStatisticApi;
 
   /**
    * API factory to access lookup data
    */
-  metaLookupApiFactory: () => MetaLookupApi;
+  metaLookupApiFactory?: () => MetaLookupApi;
 
   /**
    * API factory to access processing state functionality
    */
-  metaProcessingstateApiFactory: () => MetaProcessingstateApi;
+  metaProcessingstateApiFactory?: () => MetaProcessingstateApi;
 
   /**
    * API factory to access pickvalue data
    */
-  metaPickvalueApiFactory: () => MetaPickvalueApi;
+  metaPickvalueApiFactory?: () => MetaPickvalueApi;
 
   /**
    * API factory to access print document lists
    */
-  metaDocumentApiFactory: () => MetaDocumentApi;
+  metaDocumentApiFactory?: () => MetaDocumentApi;
 
   /**
    * API factory to access documentation
    */
-  metaDocumentationApiFactory: () => MetaDocumentationApi;
+  metaDocumentationApiFactory?: () => MetaDocumentationApi;
 
   /**
    * API factory to access page metadata
    */
-  metaPageApiFactory: () => MetaPageApi;
+  metaPageApiFactory?: () => MetaPageApi;
 
   /**
    * API factory to access generic entity crud operations
    */
-  metaGenericEntityApiFactory: (baseUrl: string) => MetaGenericEntityApi;
+  metaGenericEntityApiFactory?: (baseUrl: string) => MetaGenericEntityApi;
 }
 
 /**

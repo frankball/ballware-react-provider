@@ -22,10 +22,7 @@ import {
   LookupStoreDescriptor,
   AutocompleteStoreDescriptor,
 } from '@ballware/react-contexts';
-import {
-  SettingsContext,
-  RightsContext,
-} from '@ballware/react-contexts';
+import { SettingsContext, RightsContext } from '@ballware/react-contexts';
 import { IdentityUserApi, IdentityRoleApi } from '@ballware/identity-interface';
 import {
   MetaLookupApi,

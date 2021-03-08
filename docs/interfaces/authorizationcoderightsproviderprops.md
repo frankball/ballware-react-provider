@@ -30,7 +30,7 @@ Property set for authorization code flow rights provider
 
 Optional uri for redirect to account management portal for authenticated user
 
-Defined in: src/authorizationcoderightsprovider.tsx:73
+Defined in: [src/authorizationcoderightsprovider.tsx:73](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/authorizationcoderightsprovider.tsx#L73)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 Url of authentication provider
 
-Defined in: src/authorizationcoderightsprovider.tsx:38
+Defined in: [src/authorizationcoderightsprovider.tsx:38](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/authorizationcoderightsprovider.tsx#L38)
 
 ___
 
@@ -50,7 +50,7 @@ ___
 
 Client application identifier
 
-Defined in: src/authorizationcoderightsprovider.tsx:43
+Defined in: [src/authorizationcoderightsprovider.tsx:43](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/authorizationcoderightsprovider.tsx#L43)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 Url in application called after user has logged out
 
-Defined in: src/authorizationcoderightsprovider.tsx:58
+Defined in: [src/authorizationcoderightsprovider.tsx:58](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/authorizationcoderightsprovider.tsx#L58)
 
 ___
 
@@ -70,7 +70,7 @@ ___
 
 Url in application called for result of login
 
-Defined in: src/authorizationcoderightsprovider.tsx:53
+Defined in: [src/authorizationcoderightsprovider.tsx:53](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/authorizationcoderightsprovider.tsx#L53)
 
 ___
 
@@ -80,7 +80,7 @@ ___
 
 Response type returned to application from authentication provider
 
-Defined in: src/authorizationcoderightsprovider.tsx:63
+Defined in: [src/authorizationcoderightsprovider.tsx:63](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/authorizationcoderightsprovider.tsx#L63)
 
 ___
 
@@ -90,7 +90,7 @@ ___
 
 Authentication scopes needed by application
 
-Defined in: src/authorizationcoderightsprovider.tsx:68
+Defined in: [src/authorizationcoderightsprovider.tsx:68](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/authorizationcoderightsprovider.tsx#L68)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 Optional client secret needed for client application
 
-Defined in: src/authorizationcoderightsprovider.tsx:48
+Defined in: [src/authorizationcoderightsprovider.tsx:48](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/authorizationcoderightsprovider.tsx#L48)
 
 ___
 
@@ -110,4 +110,4 @@ ___
 
 Mapping function to map additional content of userinfo endpoint to user rights instance
 
-Defined in: src/authorizationcoderightsprovider.tsx:78
+Defined in: [src/authorizationcoderightsprovider.tsx:78](https://github.com/frankball/ballware-react-provider/blob/466bec9/src/authorizationcoderightsprovider.tsx#L78)
