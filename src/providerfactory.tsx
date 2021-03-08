@@ -18,7 +18,6 @@ import { AttachmentProvider } from './attachmentprovider';
 import { CrudProvider } from './crudprovider';
 import { NotificationProvider } from './notificationprovider';
 import { TenantProvider } from './tenantprovider';
-import { ResourceOwnerRightsProvider } from './resourceownerrightsprovider';
 import { StatisticProvider } from './statisticprovider';
 import { EditProvider } from './editprovider';
 
@@ -44,7 +43,6 @@ export const ProviderFactory = ({
       LookupProvider,
       NotificationProvider,
       TenantProvider,
-      ResourceOwnerRightsProvider,
       EditProvider,
       StatisticProvider,
     } as ProviderFactoryContextState);

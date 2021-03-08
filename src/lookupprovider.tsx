@@ -24,7 +24,7 @@ import {
 } from '@ballware/react-contexts';
 import {
   SettingsContext,
-  ResourceOwnerRightsContext,
+  RightsContext,
 } from '@ballware/react-contexts';
 import { IdentityUserApi, IdentityRoleApi } from '@ballware/identity-interface';
 import {
@@ -246,7 +246,7 @@ export const LookupProvider = ({
     metaPickvalueApiFactory,
     metaProcessingstateApiFactory,
   } = useContext(SettingsContext);
-  const { token } = useContext(ResourceOwnerRightsContext);
+  const { token } = useContext(RightsContext);
 
   const getGenericLookupByIdentifier = useCallback(
     (identifier: string, valueExpr: string, displayExpr: string) => {

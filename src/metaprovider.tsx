@@ -19,7 +19,7 @@ import {
   QueryParams,
 } from '@ballware/meta-interface';
 import {
-  ResourceOwnerRightsContext,
+  RightsContext,
   MetaContext,
   MetaContextState,
   SettingsContext,
@@ -79,7 +79,7 @@ export const MetaProvider = ({
   const { metaEntityApiFactory, metaGenericEntityApiFactory } = useContext(
     SettingsContext
   );
-  const { token, rights } = useContext(ResourceOwnerRightsContext);
+  const { token, rights } = useContext(RightsContext);
   const { lookups, lookupsComplete, createLookups } = useContext(LookupContext);
   const { showError } = useContext(NotificationContext);
 

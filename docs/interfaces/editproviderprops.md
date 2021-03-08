@@ -25,7 +25,7 @@ Edit provider properties
 
 Edit layout used for edit operation
 
-Defined in: [src/editprovider.tsx:23](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/editprovider.tsx#L23)
+Defined in: [src/editprovider.tsx:23](https://github.com/frankball/ballware-react-provider/blob/999ac7f/src/editprovider.tsx#L23)
 
 ___
 
@@ -35,7 +35,7 @@ ___
 
 Custom edit function identifier if custom edit operation
 
-Defined in: [src/editprovider.tsx:38](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/editprovider.tsx#L38)
+Defined in: [src/editprovider.tsx:38](https://github.com/frankball/ballware-react-provider/blob/999ac7f/src/editprovider.tsx#L38)
 
 ___
 
@@ -45,7 +45,7 @@ ___
 
 Item to be edited
 
-Defined in: [src/editprovider.tsx:28](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/editprovider.tsx#L28)
+Defined in: [src/editprovider.tsx:28](https://github.com/frankball/ballware-react-provider/blob/999ac7f/src/editprovider.tsx#L28)
 
 ___
 
@@ -55,4 +55,4 @@ ___
 
 Edit mode for edit operation
 
-Defined in: [src/editprovider.tsx:33](https://github.com/frankball/ballware-react-provider/blob/f1bd1f6/src/editprovider.tsx#L33)
+Defined in: [src/editprovider.tsx:33](https://github.com/frankball/ballware-react-provider/blob/999ac7f/src/editprovider.tsx#L33)

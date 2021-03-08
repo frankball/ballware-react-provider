@@ -22,7 +22,7 @@ import {
 import {
   PageContext,
   PageContextState,
-  ResourceOwnerRightsContext,
+  RightsContext,
   SettingsContext,
   NotificationContext,
   LookupContext,
@@ -61,7 +61,7 @@ export const PageProvider = ({
     SettingsContext
   );
   const { showInfo, showError } = useContext(NotificationContext);
-  const { token } = useContext(ResourceOwnerRightsContext);
+  const { token } = useContext(RightsContext);
   const { createLookups, lookups, lookupsComplete } = useContext(LookupContext);
 
   const loadDocumentation = useCallback(

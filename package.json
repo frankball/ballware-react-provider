@@ -1,6 +1,6 @@
 {
   "name": "@ballware/react-provider",
-  "version": "6.0.6",
+  "version": "6.0.7",
   "description": "Ballware Application Builder - React provider for contexts",
   "license": "MIT",
   "author": "frank@ballmeyer.com",
@@ -33,7 +33,8 @@
   },
   "peerDependencies": {
     "react": ">=16",
-    "react-router-dom": ">=5.2.0"
+    "react-router-dom": ">=5.2.0",
+    "oidc-client": ">=1.11.5"
   },
   "husky": {
     "hooks": {
@@ -68,6 +69,7 @@
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^4.3.7",
+    "oidc-client": "^1.11.5",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
@@ -81,7 +83,7 @@
   "dependencies": {
     "@ballware/identity-interface": "^6.0.2",
     "@ballware/meta-interface": "^6.0.2",
-    "@ballware/react-contexts": "^6.0.8",
+    "@ballware/react-contexts": "^6.0.9",
     "axios": "^0.21.1",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",

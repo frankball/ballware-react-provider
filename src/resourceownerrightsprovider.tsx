@@ -12,9 +12,9 @@ import React, {
   PropsWithChildren,
 } from 'react';
 import {
-  ResourceOwnerRightsContext,
+  RightsContext,
   RightsContextState,
-  PersistedResourceOwnerRightsState,
+  PersistedRightsState,
 } from '@ballware/react-contexts';
 import { SettingsContext, NotificationContext } from '@ballware/react-contexts';
 import moment from 'moment';
@@ -47,31 +47,31 @@ export interface ResourceOwnerRightsProviderProps {
 /**
  * Initialize rights provider state from application store
  */
-function loadInitialRightsState(): PersistedResourceOwnerRightsState {
+function loadInitialRightsState(): PersistedRightsState {
   const storeRights = localStorage.getItem('state.rights');
 
   if (storeRights) {
-    const rights = JSON.parse(storeRights) as PersistedResourceOwnerRightsState;
+    const rights = JSON.parse(storeRights) as PersistedRightsState;
 
     if (
       rights &&
       rights.timeout_in &&
       new Date(rights.timeout_in) <= new Date()
     ) {
-      return {} as PersistedResourceOwnerRightsState;
+      return {} as PersistedRightsState;
     } else {
       return rights;
     }
   }
 
-  return {} as PersistedResourceOwnerRightsState;
+  return {} as PersistedRightsState;
 }
 
 /**
  * Store current rights provider state to application store
  * @param Current rights provider state
  */
-function storeRightsState(state: PersistedResourceOwnerRightsState): void {
+function storeRightsState(state: PersistedRightsState): void {
   localStorage.setItem('state.rights', JSON.stringify(state));
 }
 
@@ -274,13 +274,11 @@ export const ResourceOwnerRightsProvider = ({
 
   useEffect(() => {
     storeRightsState({
-      ...(value as PersistedResourceOwnerRightsState),
+      ...(value as PersistedRightsState),
     });
   }, [value]);
 
   return (
-    <ResourceOwnerRightsContext.Provider value={value}>
-      {children}
-    </ResourceOwnerRightsContext.Provider>
+    <RightsContext.Provider value={value}>{children}</RightsContext.Provider>
   );
 };

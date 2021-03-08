@@ -16,7 +16,7 @@ import { CompiledTenant, NavigationLayoutItem } from '@ballware/meta-interface';
 import {
   TenantContext,
   TenantContextState,
-  ResourceOwnerRightsContext,
+  RightsContext,
   SettingsContext,
   NotificationContext,
 } from '@ballware/react-contexts';
@@ -56,7 +56,7 @@ export const TenantProvider = ({
   const [value, setValue] = useState({} as TenantContextState);
 
   const { metaTenantApiFactory } = useContext(SettingsContext);
-  const { rights, token } = useContext(ResourceOwnerRightsContext);
+  const { rights, token } = useContext(RightsContext);
   const { showError } = useContext(NotificationContext);
 
   const pageAllowed = useCallback(

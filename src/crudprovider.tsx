@@ -77,37 +77,39 @@ export const CrudProvider = ({
     ) {
       setValue({
         fetchParams: fetchParams,
-        load: queryIdentifier ? params => {
-          if (query) {
-            setValue(previousValue => {
-              return {
-                ...previousValue,
-                isLoading: true,
-              };
-            });
+        load: queryIdentifier
+          ? params => {
+              if (query) {
+                setValue(previousValue => {
+                  return {
+                    ...previousValue,
+                    isLoading: true,
+                  };
+                });
 
-            query(queryIdentifier, params)
-              .then((result: Array<CrudItem>) => {
-                setValue(previousValue => {
-                  return {
-                    ...previousValue,
-                    isLoading: false,
-                    fetchedItems: result.map(item => mapIncomingItem(item)),
-                  };
-                });
-              })
-              .catch(reason => {
-                showError(reason);
-                setValue(previousValue => {
-                  return {
-                    ...previousValue,
-                    isLoading: false,
-                    fetchedItems: [],
-                  };
-                });
-              });
-          }
-        } : undefined,
+                query(queryIdentifier, params)
+                  .then((result: Array<CrudItem>) => {
+                    setValue(previousValue => {
+                      return {
+                        ...previousValue,
+                        isLoading: false,
+                        fetchedItems: result.map(item => mapIncomingItem(item)),
+                      };
+                    });
+                  })
+                  .catch(reason => {
+                    showError(reason);
+                    setValue(previousValue => {
+                      return {
+                        ...previousValue,
+                        isLoading: false,
+                        fetchedItems: [],
+                      };
+                    });
+                  });
+              }
+            }
+          : undefined,
         add: editLayout => {
           create(headParams)
             .then(result => {

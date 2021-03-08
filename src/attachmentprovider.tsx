@@ -12,7 +12,7 @@ import React, {
   PropsWithChildren,
 } from 'react';
 import {
-  ResourceOwnerRightsContext,
+  RightsContext,
   SettingsContext,
   AttachmentContextState,
   AttachmentContext,
@@ -32,7 +32,7 @@ export const AttachmentProvider = ({
   const [value, setValue] = useState({} as AttachmentContextState);
 
   const { metaAttachmentApiFactory } = useContext(SettingsContext);
-  const { token } = useContext(ResourceOwnerRightsContext);
+  const { token } = useContext(RightsContext);
 
   useEffect(() => {
     if (token && metaAttachmentApiFactory) {

@@ -14,7 +14,7 @@ import React, {
 import {
   StatisticContext,
   StatisticContextState,
-  ResourceOwnerRightsContext,
+  RightsContext,
   NotificationContext,
   SettingsContext,
   PageContext,
@@ -60,7 +60,7 @@ export const StatisticProvider = ({
 
   const { metaStatisticApiFactory } = useContext(SettingsContext);
   const { showError } = useContext(NotificationContext);
-  const { token } = useContext(ResourceOwnerRightsContext);
+  const { token } = useContext(RightsContext);
   const { customParam } = useContext(PageContext);
   const { lookups, lookupsComplete } = useContext(LookupContext);
 
